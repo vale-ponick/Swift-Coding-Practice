@@ -40,16 +40,19 @@ public struct Chapter3_Arrays {
     }
     static func task3_6() {
         print("Задача 3.6: Создайте массив из чисел = купюр в долларах. Посчитай количество денег и выведи в консоль.")
-        // var. 1
+        // Option 1: Loop
     let dollars = [100, 50, 2, 5, 5, 20, 10, 20, 50, 100, 1] // купюры
-        var summa: Int = 0
+        var summaViaLoop: Int = 0
         for dollar in dollars {
-            summa += dollar
+            summaViaLoop += dollar
         }
-        print(summa) // 363
+        print("Cash in wallet from circle: \(summaViaLoop)") // Cash in wallet from circle: 363
         
-        // var. 2
-        let sum = dollars.reduce(0, +)
-        print(sum) // 363
+        // Option 1: Reduce
+        let summaViaReduce = dollars.reduce(0, +)
+        print("Cash in wallet from 'reduce': \(summaViaReduce)") // Cash in wallet from 'reduce': 363
+        
+        // Verification
+        print("Do the results match? \(summaViaReduce == summaViaLoop)") // Do the results match? true
     }
 }
