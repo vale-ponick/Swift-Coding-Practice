@@ -7,5 +7,6 @@
 
 import Foundation
 
-print("Hello, World!")
+print("Hello, vale.ponick!") // Hello, vale.ponick!
+
 
