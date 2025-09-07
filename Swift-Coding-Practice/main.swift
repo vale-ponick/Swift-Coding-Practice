@@ -8,5 +8,5 @@
 import Foundation
 
 print("Hello, vale.ponick!") // Hello, vale.ponick!
-
+print("Hi, Valery") // Hi, Valery
 

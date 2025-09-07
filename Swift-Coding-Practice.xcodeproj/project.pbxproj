@@ -28,11 +28,6 @@
 			path = "Swift-Coding-Practice";
 			sourceTree = "<group>";
 		};
-		587DA0A32E6D254600712261 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Sources;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +44,6 @@
 		587DA0902E6D24D200712261 = {
 			isa = PBXGroup;
 			children = (
-				587DA0A32E6D254600712261 /* Sources */,
 				587DA09B2E6D24D200712261 /* Swift-Coding-Practice */,
 				587DA09A2E6D24D200712261 /* Products */,
 			);
@@ -80,7 +74,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				587DA09B2E6D24D200712261 /* Swift-Coding-Practice */,
-				587DA0A32E6D254600712261 /* Sources */,
 			);
 			name = "Swift-Coding-Practice";
 			packageProductDependencies = (
