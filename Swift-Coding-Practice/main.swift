@@ -10,3 +10,10 @@ import Foundation
 print("Hello, vale.ponick!") // Hello, vale.ponick!
 print("Hi, Valery") // Hi, Valery
 
+// Запуск всех задач
+Chapter1_Lets_Vars.runAllTasks()
+print()
+Chapter2_Strings.runAllTasks()
+print() // Пустая строка для разделения
+Chapter3_Arrays.runAllTasks()
+print()
