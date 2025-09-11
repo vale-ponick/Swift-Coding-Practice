@@ -17,11 +17,13 @@ public struct Chapter3_Arrays {
         task3_6()
         // Arrays: Advanced Level
         task3a_1()
-        task3ab_2()
+        task3ab_1()
         task3ac_1()
         task3a_2()
-        task3aa_2()
-        task3aaa_2()
+        task3ab_2()
+        task3ac_2()
+        task3ad_2()
+        task3ae_2()
         task3a_3()
         task3a_4()
         task3a_5()
@@ -110,7 +112,7 @@ public struct Chapter3_Arrays {
         print(europeanUnion) // ["France", "Italy", "Germany", "Czech Republic", "Denmark", "Croatia", "Ireland", "Austria", "Sweden", "Poland"]
     }
     
-    static func task3ab_2() {
+    static func task3ab_1() {
         print("Задача 3a.1: Проверь строки, если в строке > 5 символов - добавь ее в массив. Но если строка содержит букву А, замени эту букву на другую и добавь измененную строку с массив.")
         
         var resultArray: [String] = []
@@ -241,7 +243,7 @@ public struct Chapter3_Arrays {
                     }
                 }
                 
-                // 5. После того как нашли min в НЕотсортированной части, меняем его местами с элементом на позиции i
+                // 4. После того как нашли min в НЕотсортированной части, меняем его местами с элементом на позиции i
                 if minIndex != i {
                     nums.swapAt(i, minIndex) // Более Swift-способ обмена элементов
                 }
@@ -298,7 +300,7 @@ public struct Chapter3_Arrays {
     
     // Альтернативный вариант с другими типами данных:
 
-    static func task3aaa_2() {
+    static func task3ab_2() {
         print("Задача 3a.2: Создайте массив из 6 значений любого типа. Сделайте линейную сортировку")
         
         // Массив строк
@@ -322,17 +324,67 @@ public struct Chapter3_Arrays {
         print("Отсортированный массив строк: \(strings)") // Отсортированный массив строк: 🍎🍌🍒🍈🥝🍋 ["apple", "banana", "cherry", "fig", "kiwi", "limon"]
     }
     
+    static func task3ac_2() {
+        print("Задача 3ac.2: Создайте масив из 12 значений любого типа. Сделайте линейную сортировку 'linear sort' по алфавиту.")
+        
+        var companyOfThorin = [
+            "Thorin Oakenshield",
+            "Balin", "Dwalin",
+            "Fili", "Kili",
+            "Dori", "Nori", "Ori", // Братья!
+            "Oin", "Gloin",
+            "Bifur", "Bofur", "Bombur",
+            "Bilbo Baggins" // Наш любимый хоббит!
+        ]
+        print("Исходный состав 'Торин и К': \(companyOfThorin)") // Исходный состав 'Торин и К': ["Thorin Oakenshield", "Balin", "Dwalin", "Fili", "Kili", "Dori", "Nori", "Ori", "Oin", "Gloin", "Bifur", "Bofur", "Bombur", "Bilbo Baggins"]
+        
+        let trevelerCount = companyOfThorin.count
+        
+        for treveler in 0..<trevelerCount - 1 {
+            var minIndex = treveler
+            for dwarf in treveler + 1..<trevelerCount {
+                if companyOfThorin[dwarf] < companyOfThorin[minIndex] {
+                    minIndex = dwarf
+                }
+            }
+                    if minIndex != treveler {
+                        companyOfThorin.swapAt(treveler, minIndex)
+            }
+        }
+        print("Состав 'Торин и К' по алфавиту: \(companyOfThorin).") // Состав 'Торин и К' по алфавиту: ["Dwalin", "Fili", "Kili", "Dori", "Nori", "Ori", "Oin", "Gloin", "Bifur", "Bofur", "Bombur", "Bilbo Baggins", "Balin", "Thorin Oakenshield"]
+        
+    }
+     
+    static func task3ad_2() {
+        print("Задача 3ad.2: Создайте масив из 12 значений любого типа. Сделайте линейную сортировку 'linear sort' по алфавиту.")
+        // ✅ Путь 2: Декларативный (Использование встроенной сортировки)
+        
+        var companyOfThorin = [
+            "Thorin",
+            "Balin", "Dwalin",
+            "Fili", "Kili",
+            "Bilbo Baggins" // Наш любимый хоббит!
+        ]
+        companyOfThorin.sort() // in-place
+        print(companyOfThorin) // ["Balin", "Bilbo Baggins", "Dwalin", "Fili", "Kili", "Thorin"]
+        // или
+        let sortedArray = companyOfThorin.sorted() // возвращает НОВЫЙ массив
+        print(companyOfThorin) // ["Balin", "Bilbo Baggins", "Dwalin", "Fili", "Kili", "Thorin"]
+    }
+    
+    static func task3ae_2() {
+        print("Задача 3ae.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
+        
+    }
     static func task3a_3() {
         print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
         
     }
     static func task3a_4() {
         print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
-        
     }
     static func task3a_5() {
         print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
-        
     }
     static func task3a_6() {
         print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
