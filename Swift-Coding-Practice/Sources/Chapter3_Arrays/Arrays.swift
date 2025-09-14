@@ -32,6 +32,12 @@ public struct Chapter3_Arrays {
         task3a_4()
         task3a_5()
         task3a_6()
+        task3a_7()
+        task3ab_7()
+        task3aс_7()
+        task3ad_7()
+        task3ae_7()
+        task3af_7()
         
         // Добавляйте новые задачи тут
     }
@@ -571,10 +577,10 @@ public struct Chapter3_Arrays {
      Aragorn - 333   */
     
     static func task3a_3() {
-        print("Задача 3a.3: Создай сортировку пузырьком - 'bubble sort'.Найди все анаграммы в массиве слов и сгруппируй слова-анаграммы вместе.")
+        print("Задача 3a.3: .Найди все анаграммы в массиве слов и сгруппируй слова-анаграммы вместе.")
         
         
-        var words = ["cat", "act", "dog", "god", "tac", "hello", "world", "listen", "silent"]
+        let words = ["cat", "act", "dog", "god", "tac", "hello", "world", "listen", "silent"]
         
         var groups: [String: [String]] = [:]
         
@@ -590,9 +596,68 @@ public struct Chapter3_Arrays {
         let result = Array(groups.values)
         print(result) // [["listen", "silent"], ["world"], ["dog", "god"], ["hello"], ["cat", "act", "tac"]]
     }
-
+    
+    
     static func task3a_4() {
-        print("Задача 3a.2: Группировка хоббитов по расе.")
+        print("Задача 3a.4: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
+        
+        
+        
+    }
+    static func task3a_5() {
+        print("Задача 3a.5: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
+        
+    }
+    static func task3a_6() {
+        print("Задача 3a.6: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
+        
+    }
+    
+    static func task3a_7() { // Объявление статической функции без параметров и возвращаемого значения
+        print("Задача 3a.2: Группировка по ключу (хоббитов по 'race').") // Вывод в консоль названия задачи. Ожидаемый результат - "Hobbit": ["Frodo", "Sam"], "Wizard": ["Gandalf"], "Elf": ["Legolas"].")
+        
+        struct Character { // Объявление структуры Character с двумя свойствами
+            let name: String    // Имя персонажа
+            let race: String    // Раса персонажа
+        }
+        
+        let characters = [  // Создание массива экземпляров структуры Character
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit")
+        ]
+        
+        // 🔁 Единый алгоритм для всех задач:
+        // 1. Создаем пустой СЛОВАРЬ для ГРУПП - ключ: раса, значение: массив ИМЕН
+        var races: [String: [String]] = [:]
+        
+        // 2. Проходим по ВСЕМ элементам массива characters
+        for character in characters {
+            // 3. Вычисляем КЛЮЧ для текущего элемента (раса персонажа)
+            let key = character.race // зависит от задачи
+            
+            // 4. Добавляем элемент в группу с этим ключом
+            if races[key] == nil {
+                races[key] = [character.name] // Если группы с такой расой еще нет - создаем НОВУЮ
+            } else {
+                races[key]!.append(character.name)  // Если группа уже существует - добавляем имя в существующий массив
+            }
+        }
+        
+        print("Группируем по race:") // Выводим результат группировки в консоль
+        
+        for (race, names) in races { // Проходим по всем парам ключ-значение в словаре races
+            // Выводим расу и список имен через запятую
+            print("\(race): \(names.joined(separator: ", "))")
+            /* Ожидаемый вывод:
+             Elf: Legolas
+             Wizard: Gandalf
+             Hobbit: Frodo, Sam     */
+        }
+    }
+    static func task3ab_7() {
+        print("Задача 3a.7: 📝 Сгруппируй персонажей по первой букве имени.")
         
         struct Character {
             let name: String
@@ -603,48 +668,171 @@ public struct Chapter3_Arrays {
             Character(name: "Frodo", race: "Hobbit"),
             Character(name: "Gandalf", race: "Wizard"),
             Character(name: "Legolas", race: "Elf"),
-            Character(name: "Sam", race: "Hobbit")
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human") // Добавим для примера
         ]
-        // Группируем по race: ["Hobbit": [Frodo, Sam], "Wizard": [Gandalf], "Elf": [Legolas]]
         
-        // 🔁 Единый алгоритм для всех задач:
-        // 1. Создаем пустой словарь для групп - рас
-        var races: [String: [String]] = [:]
+        var charDict: [String: [String]] = [:]
+        for char in characters {
+            let firstLetter = String(char.name.first ?? " ")
+            charDict[firstLetter] = (charDict[firstLetter] ?? []) + [char.name]
+        }
         
-        // 2. Проходим по всем элементам
-        for character in characters {
-            // 3. Вычисляем КЛЮЧ для текущего элемента
-            let key = character.race // зависит от задачи
+        // Выводим результат
+        print("Результат группировки:")
+        for (key, values) in charDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    }
+    
+    // Функция для красивого вывода (отдельно)
+    func printBeautifully(charDict: [String: [String]]) {
+        for (key, values) in charDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    } /* Результат группировки:
+       A: Aragorn
+       F: Frodo
+       G: Gandalf
+       L: Legolas
+       S: Sam   */
+    
+    static func task3aс_7() {
+        print("Задача 3ac.7: 📝 Сгруппируй персонажей по длине имени / расы. Суть: от массива структур - к словарю чисел и строк.")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        
+        var emptyDict: [Int: [String]] = [:] // пустой словарь для групп
+        
+        for char in characters { // циклом пройди по всему массиву структур
+            let countName = char.name.count // не нужно проверять на nil
             
+            emptyDict[countName] = (emptyDict[countName] ?? []) + [char.name]
+        }
+        // Выводим результат
+        print("Итак:")
+        for (key, values) in emptyDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    }
+    
+    // Функция для красивого вывода (отдельно)
+    func printBeauty(emptyDict: [String: [String]]) {
+        for (key, values) in emptyDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    } /* Суть: от массива структур - к словарю строк.
+       Итак:
+       3: Sam
+       5: Frodo
+       7: Gandalf, Legolas, Aragorn */
+    
+    static func task3ad_7() {
+        print("Задача 3ad.7: 📝 Сгруппируй персонажей по длине расы. Nil-coalescing. Суть: от массива структур - к словарю чисел и строк.")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        var emptyDict: [Int: [String]] = [:]
+        
+        for char in characters {
+            let raceCount = char.race.count
+            emptyDict[raceCount] = (emptyDict[raceCount] ?? []) + [char.race]
+        }
+        print("Result:")
+        for (key, values) in emptyDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    } /* Result:
+       3: Elf
+       5: Human
+       6: Hobbit, Wizard, Hobbit */
+    
+    static func task3ae_7() {
+        print("Задача 3ae.7: 📝 Сгруппируй персонажей по длине расы. Цикл for-in. Суть: от массива структур - к словарю чисел и строк.")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        var emptyDict: [Int: [String]] = [:]
+        
+        for char in characters {
+            let raceCount = char.race.count
             // 4. Добавляем элемент в группу с этим ключом
-            if races[key] == nil {
-                races[key] = [character.name]    // Создаем новую группу
+            if emptyDict[raceCount] == nil {
+                emptyDict[raceCount] = [char.race] // Если группы с такой расой еще нет - создаем НОВУЮ
             } else {
-                races[key]!.append(character.name) // Добавляем в существующую
+                emptyDict[raceCount]!.append(char.race)  // Если группа уже существует - добавляем имя в существующий массив
             }
         }
-            
-        print("Группируем по race:")
-        for (race, names) in races {
-        print("\(race): \(names.joined(separator: ", "))")
-            /*  Группируем по race:
-                 Elf: Legolas
-                 Wizard: Gandalf
-                 Hobbit: Frodo, Sam     */
-        }
+        print("РеЗуЛьТаТ:")
+        for (key, values) in emptyDict.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
     }
+} /*    РеЗуЛьТаТ:
+        3: Elf
+        5: Human
+        6: Hobbit, Wizard, Hobbit */
 
-        static func task3a_5() {
-            print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
-           
-            
-            
-        }
-        static func task3a_6() {
-            print("Задача 3a.2: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
-            
-        }
+static func task3af_7() {
+    print("Задача 3ae.7: 📝 Сгруппируй персонажей по длине расы. Функциональный стиль. Суть: от массива структур - к словарю чисел и строк.")
+    
+    struct Character {
+        let name: String
+        let race: String
     }
-
+    
+    let characters = [
+        Character(name: "Frodo", race: "Hobbit"),
+        Character(name: "Gandalf", race: "Wizard"),
+        Character(name: "Legolas", race: "Elf"),
+        Character(name: "Sam", race: "Hobbit"),
+        Character(name: "Aragorn", race: "Human")
+    ]
+    
+    let grouped = characters.reduce(into: [Int: [String]]()) { resultDict, char in
+        let key = char.race.count
+        resultDict[key, default: []].append(char.race)
+    }
+    print("Result:")
+    for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
+        print("\(key): \(values.joined(separator: ", "))")
+        } // 💡 reduce(into:) — это как "аккумулятор"
+    // array.reduce(into: начальное_значение) { результат, элемент in
+        // изменяем результат
+    }
+} /*    Result:
+            3: Elf
+            5: Human
+            6: Hobbit, Wizard, Hobbit   */
 
 
