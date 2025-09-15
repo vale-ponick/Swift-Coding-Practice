@@ -42,6 +42,8 @@ public struct Chapter3_Arrays {
         task3ah_7()
         task3ag_7()
         performQuickSort()
+        countryQuickSort()
+        sitiesQuickSort()
         
         // Добавляйте новые задачи тут
     }
@@ -382,7 +384,7 @@ public struct Chapter3_Arrays {
         companyOfThorin.sort() // in-place
         print(companyOfThorin) // ["Balin", "Bilbo Baggins", "Dwalin", "Fili", "Kili", "Thorin"]
         // или
-        let sortedArray = companyOfThorin.sorted() // возвращает НОВЫЙ массив
+        // let sortedArray = companyOfThorin.sorted() // возвращает НОВЫЙ массив
         print(companyOfThorin) // ["Balin", "Bilbo Baggins", "Dwalin", "Fili", "Kili", "Thorin"]
     }
     
@@ -955,8 +957,68 @@ public struct Chapter3_Arrays {
         }
         print(" Массив ДО сортировки 'quick sort': \(numbers)")
         print("Массив ПОСЛЕ сортировки: \(quickSortedCopy(numbers: numbers))")
+    } /*  Задача 3a.4: Создайте массив из 12 значений любого типа. Сделайте быструю сортировку (quick sort).
+       Массив ДО сортировки 'quick sort': [11, 12, 10, 1, 3, 2, 5, 9, 6, 7, 4, 9]
+       Массив ПОСЛЕ сортировки: [1, 2, 3, 4, 5, 6, 7, 9, 9, 10, 11, 12] */
+    
+    static func countryQuickSort() {
+        print("Задача 3a.4: Создайте массив из 12 стран - значений типа String. Сделайте быструю сортировку (quick sort).")
+        
+        let countries = ["Brazil", "Russia", "France", "Angola", "Italy", "Spain", "Japan"]
+        func quickSortedCopy(countries: [String]) -> [String] {
+            guard countries.count > 1 else {
+                return countries
+            }
+            let pivotIndex = countries.count / 2
+            let pivot = countries[pivotIndex]
+            
+            let less = countries.filter { $0 < pivot }
+            let equal = countries.filter { $0 == pivot }
+            let greater = countries.filter { $0 > pivot }
+            
+            return quickSortedCopy(countries: less) + equal + quickSortedCopy(countries: greater)
+        }
+        print("Массив стран до сортировки 'quick sort': \(countries)")
+        print("Массив стран ПОСЛЕ сортировки: \(quickSortedCopy(countries: countries))")
     }
-} /*  Задача 3a.4: Создайте массив из 12 значений любого типа. Сделайте быструю сортировку (quick sort).
-   Массив ДО сортировки 'quick sort': [11, 12, 10, 1, 3, 2, 5, 9, 6, 7, 4, 9]
-  Массив ПОСЛЕ сортировки: [1, 2, 3, 4, 5, 6, 7, 9, 9, 10, 11, 12] */
+    /*    Задача 3a.4: Создайте массив из 12 стран - значений типа String. Сделайте быструю сортировку (quick sort).
+     Массив стран до сортировки 'quick sort': ["Brazil", "Russia", "France", "Angola", "Italy", "Spain", "Japan"]
+     Массив стран ПОСЛЕ сортировки: ["Angola", "Brazil", "France", "Italy", "Japan", "Russia", "Spain"]   */
+    
+    static func sitiesQuickSort() {
+        print("Задача 3a.5: Создайте массив из 12 стран - значений типа String. Сделайте коктейльную шейкерную сортировку  - 'Cocktail Shaker Sort'.")
+        
+        var cities = ["London", "Paris", "Tokio", "Delhi", "Cairo", "Istanbul", "Shanghai", "Osaka", "Rome"]
+        
+        print("До: \(cities)")
+        
+        var left = 0
+        var right = cities.count - 1
+        var swapped = true
+        
+        while swapped {
+            swapped = false
+            
+            // Проход слева направо
+            for i in left..<right {
+                if cities[i] > cities[i + 1] {
+                    cities.swapAt(i, i + 1)
+                    swapped = true
+                }
+            }
+            right -= 1
+            for i in stride(from: right, through: left + 1, by: -1) {
+                if cities[i] < cities[i - 1] {  // Сравниваем с предыдущим элементом
+                    cities.swapAt(i, i - 1)     // Меняем местами
+                    swapped = true               // Отмечаем что был обмен
+                }
+            }
+            left += 1  // Увеличиваем left ПОСЛЕ цикла
+        }
+        print("Массив городов ПОСЛЕ сортировки 'Cocktail Shaker Sort': \(cities)")
+    }
+} /*    Задача 3a.5: Создайте массив из 12 стран - значений типа String. Сделайте коктейльную шейкерную сортировку  - 'Cocktail Shaker Sort'.
+   До: ["London", "Paris", "Tokio", "Delhi", "Cairo", "Istanbul", "Shanghai", "Osaka", "Rome"]
+   Массив городов ПОСЛЕ сортировки 'Cocktail Shaker Sort': ["Cairo", "Delhi", "Istanbul", "London", "Osaka", "Paris", "Rome", "Shanghai", "Tokio"]  */
+
 
