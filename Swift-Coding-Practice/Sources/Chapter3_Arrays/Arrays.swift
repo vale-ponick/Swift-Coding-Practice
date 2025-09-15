@@ -41,6 +41,7 @@ public struct Chapter3_Arrays {
         task3aj_7()
         task3ah_7()
         task3ag_7()
+        performQuickSort()
         
         // Добавляйте новые задачи тут
     }
@@ -602,13 +603,10 @@ public struct Chapter3_Arrays {
         print(result) // [["listen", "silent"], ["world"], ["dog", "god"], ["hello"], ["cat", "act", "tac"]]
     }
     
-    
     static func task3a_4() {
-        print("Задача 3a.4: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
-        
-        
-        
+        print("Задача 3a.4: Создайте массив из 12 значений любого типа. Сделайте быструю сортировку (quick sort).")
     }
+    
     static func task3a_5() {
         print("Задача 3a.5: Создайте масив из 6 значений любого типа. Сделайте линейную сортировку (linear sort.")
         
@@ -802,42 +800,42 @@ public struct Chapter3_Arrays {
         print("РеЗуЛьТаТ:")
         for (key, values) in emptyDict.sorted(by: { $0.key < $1.key }) {
             print("\(key): \(values.joined(separator: ", "))")
-    }
-} /*    РеЗуЛьТаТ:
-        3: Elf
-        5: Human
-        6: Hobbit, Wizard, Hobbit */
-
-static func task3af_7() {
-    print("Задача 3ae.7: 📝 Сгруппируй персонажей по длине расы. Функциональный стиль. Суть: от массива структур - к словарю чисел и строк.")
+        }
+    } /*    РеЗуЛьТаТ:
+       3: Elf
+       5: Human
+       6: Hobbit, Wizard, Hobbit */
     
-    struct Character {
-        let name: String
-        let race: String
-    }
-    
-    let characters = [
-        Character(name: "Frodo", race: "Hobbit"),
-        Character(name: "Gandalf", race: "Wizard"),
-        Character(name: "Legolas", race: "Elf"),
-        Character(name: "Sam", race: "Hobbit"),
-        Character(name: "Aragorn", race: "Human")
-    ]
-    
-    let grouped = characters.reduce(into: [Int: [String]]()) { resultDict, char in
-        let key = char.race.count
-        resultDict[key, default: []].append(char.race)
-    }
-    print("Result:")
-    for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
-        print("\(key): \(values.joined(separator: ", "))")
+    static func task3af_7() {
+        print("Задача 3ae.7: 📝 Сгруппируй персонажей по длине расы. Функциональный стиль. Суть: от массива структур - к словарю чисел и строк.")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        
+        let grouped = characters.reduce(into: [Int: [String]]()) { resultDict, char in
+            let key = char.race.count
+            resultDict[key, default: []].append(char.race)
+        }
+        print("Result:")
+        for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
         } // 💡 reduce(into:) — это как "аккумулятор"
-    // array.reduce(into: начальное_значение) { результат, элемент in
+        // array.reduce(into: начальное_значение) { результат, элемент in
         // изменяем результат
-} /*    Result:
-            3: Elf
-            5: Human
-            6: Hobbit, Wizard, Hobbit   */
+    } /*    Result:
+       3: Elf
+       5: Human
+       6: Hobbit, Wizard, Hobbit   */
     
     static func task3aj_7() {
         print("Задача 3aj.7: 📝 Группировка по первой букве имени через reduce(into:).")
@@ -866,11 +864,11 @@ static func task3af_7() {
             print("\(key): \(values.joined(separator: ", "))")
         }
     } /* Группировка по первой букве имени:
-            A: Aragorn
-            F: Frodo
-            G: Gandalf
-            L: Legolas
-            S: Sam */
+       A: Aragorn
+       F: Frodo
+       G: Gandalf
+       L: Legolas
+       S: Sam */
     
     static func task3ah_7() {
         print("Задача 3aj.7: 📝 Группировка по длине имени через reduce(into:).")
@@ -931,8 +929,34 @@ static func task3af_7() {
         for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
             print("\(key): \(values.joined(separator: ", "))")
         }
+    } /* Задача 3ag.7: 📝 Группировка 'магические/обычные' через reduce(into:).
+       Группировка 'магические/обычные' через reduce(into:)
+       Magical: Gandalf, Legolas, Aragorn
+       Ordinary: Frodo, Sam */
+    
+    static func performQuickSort() {
+        print("Задача 3a.4: Создайте массив из 12 значений любого типа. Сделайте быструю сортировку (quick sort).")
+        
+        let numbers = [11, 12, 10, 1, 3, 2, 5, 9, 6, 7, 4, 9]
+        
+        func quickSortedCopy(numbers: [Int]) -> [Int] {
+            guard numbers.count > 1 else {
+                return numbers
+            }
+            
+            let pivotIndex = numbers.count / 2
+            let pivot = numbers[pivotIndex]
+            
+            let less = numbers.filter { $0 < pivot }
+            let equal = numbers.filter { $0 == pivot }
+            let greater = numbers.filter { $0 > pivot }
+            
+            return quickSortedCopy(numbers: less) + equal + quickSortedCopy(numbers: greater)
+        }
+        print(" Массив ДО сортировки 'quick sort': \(numbers)")
+        print("Массив ПОСЛЕ сортировки: \(quickSortedCopy(numbers: numbers))")
     }
-} /* Задача 3ag.7: 📝 Группировка 'магические/обычные' через reduce(into:).
-   Группировка 'магические/обычные' через reduce(into:)
-   Magical: Gandalf, Legolas, Aragorn
-   Ordinary: Frodo, Sam */
+} /*  Задача 3a.4: Создайте массив из 12 значений любого типа. Сделайте быструю сортировку (quick sort).
+   Массив ДО сортировки 'quick sort': [11, 12, 10, 1, 3, 2, 5, 9, 6, 7, 4, 9]
+  Массив ПОСЛЕ сортировки: [1, 2, 3, 4, 5, 6, 7, 9, 9, 10, 11, 12] */
+
