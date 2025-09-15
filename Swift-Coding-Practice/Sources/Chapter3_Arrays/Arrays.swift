@@ -44,6 +44,7 @@ public struct Chapter3_Arrays {
         performQuickSort()
         countryQuickSort()
         sitiesQuickSort()
+        oddEvenSort()
         
         // Добавляйте новые задачи тут
     }
@@ -1016,9 +1017,38 @@ public struct Chapter3_Arrays {
             left += 1  // Увеличиваем left ПОСЛЕ цикла
         }
         print("Массив городов ПОСЛЕ сортировки 'Cocktail Shaker Sort': \(cities)")
-    }
-} /*    Задача 3a.5: Создайте массив из 12 стран - значений типа String. Сделайте коктейльную шейкерную сортировку  - 'Cocktail Shaker Sort'.
-   До: ["London", "Paris", "Tokio", "Delhi", "Cairo", "Istanbul", "Shanghai", "Osaka", "Rome"]
-   Массив городов ПОСЛЕ сортировки 'Cocktail Shaker Sort': ["Cairo", "Delhi", "Istanbul", "London", "Osaka", "Paris", "Rome", "Shanghai", "Tokio"]  */
-
-
+    } /*    Задача 3a.5: Создайте массив из 12 стран - значений типа String. Сделайте коктейльную шейкерную сортировку  - 'Cocktail Shaker Sort'.
+       До: ["London", "Paris", "Tokio", "Delhi", "Cairo", "Istanbul", "Shanghai", "Osaka", "Rome"]
+       Массив городов ПОСЛЕ сортировки 'Cocktail Shaker Sort': ["Cairo", "Delhi", "Istanbul", "London", "Osaka", "Paris", "Rome", "Shanghai", "Tokio"]  */
+    
+    static func oddEvenSort() {
+        print("Задача 3a.6: Создайте массив из 12 стран - значений типа String. Сделай чётно-нечётную сортировку - 'Odd-Even Sort' Принцип: Попарное сравнение элементов на чётных и нечётных позициях.")
+        
+        
+        var cities = ["London", "Paris", "Tokio", "Delhi", "Cairo", "Istanbul"]
+        var sorted = false
+        
+        while !sorted {
+            sorted = true
+            
+            for i in stride(from: 0, to: cities.count - 1, by: 2) { // Чётные пары
+                if cities[i] > cities[i + 1] {
+                    cities.swapAt(i, i + 1)
+                    sorted = false
+                }
+            }
+            for i in stride(from: 1, to: cities.count - 1, by: 2) {  // Нечётные пары
+                if cities[i] > cities[i + 1] {
+                    cities.swapAt(i, i + 1)
+                    sorted = false
+                }
+            }
+        }
+        print("Массив городов ПОСЛЕ сортировки 'Odd-Even Sort': \(cities)")
+    } // Массив городов ПОСЛЕ сортировки 'Odd-Even Sort': ["Cairo", "Delhi", "Istanbul", "London", "Paris", "Tokio"]
+} /*    ✅ Всё верно:
+   Чётный проход — stride(from: 0, to: ..., by: 2) ✅
+   Нечётный проход — stride(from: 1, to: ..., by: 2) ✅
+   Сравнение соседей — cities[i] > cities[i + 1] ✅
+   Обмен элементов — swapAt(i, i + 1) ✅
+   Флаг sorted — контролирует завершение ✅  */
