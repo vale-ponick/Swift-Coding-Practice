@@ -38,6 +38,9 @@ public struct Chapter3_Arrays {
         task3ad_7()
         task3ae_7()
         task3af_7()
+        task3aj_7()
+        task3ah_7()
+        task3ag_7()
         
         // Добавляйте новые задачи тут
     }
@@ -576,6 +579,8 @@ public struct Chapter3_Arrays {
      Denethor - 88
      Aragorn - 333   */
     
+    // «Группировка данных: от классики до функционального стиля» 🚀
+    
     static func task3a_3() {
         print("Задача 3a.3: .Найди все анаграммы в массиве слов и сгруппируй слова-анаграммы вместе.")
         
@@ -829,10 +834,105 @@ static func task3af_7() {
         } // 💡 reduce(into:) — это как "аккумулятор"
     // array.reduce(into: начальное_значение) { результат, элемент in
         // изменяем результат
-    }
 } /*    Result:
             3: Elf
             5: Human
             6: Hobbit, Wizard, Hobbit   */
-
-
+    
+    static func task3aj_7() {
+        print("Задача 3aj.7: 📝 Группировка по первой букве имени через reduce(into:).")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        
+        // 💡 Шаблон для всех задач:
+        
+        let grouped = characters.reduce(into: [String: [String]]()) { resultDictionary, char in
+            let key = String(char.name.first ?? " ") // Вычисляю ключ
+            resultDictionary[key, default: []].append(char.name)// Добавляю char.name/char.race в result
+        }
+        print("Группировка по первой букве имени:")
+        for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    } /* Группировка по первой букве имени:
+            A: Aragorn
+            F: Frodo
+            G: Gandalf
+            L: Legolas
+            S: Sam */
+    
+    static func task3ah_7() {
+        print("Задача 3aj.7: 📝 Группировка по длине имени через reduce(into:).")
+        
+        struct Character {
+            let name: String
+            let race: String
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit"),
+            Character(name: "Gandalf", race: "Wizard"),
+            Character(name: "Legolas", race: "Elf"),
+            Character(name: "Sam", race: "Hobbit"),
+            Character(name: "Aragorn", race: "Human")
+        ]
+        
+        // 💡 Шаблон для всех задач:
+        
+        let grouped = characters.reduce(into: [Int: [String]]()) { resultDictionary, char in
+            let key = char.name.count // Вычисляю ключ
+            resultDictionary[key, default: []].append(char.name)// Добавляю char.name/char.race в result
+        }
+        print("Группировка по длине имени:")
+        for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    } /* Задача 3aj.7: 📝 Группировка по длине имени через reduce(into:).
+       Группировка по длине имени:
+       3: Sam
+       5: Frodo
+       7: Gandalf, Legolas, Aragorn */
+    
+    static func task3ag_7() {
+        print("Задача 3ag.7: 📝 Группировка 'магические/обычные' через reduce(into:).")
+        
+        struct Character {
+            let name: String
+            let race: String
+            let magic: Bool
+        }
+        
+        let characters = [
+            Character(name: "Frodo", race: "Hobbit", magic: false),
+            Character(name: "Gandalf", race: "Wizard", magic: true),
+            Character(name: "Legolas", race: "Elf", magic: true),
+            Character(name: "Sam", race: "Hobbit", magic: false),
+            Character(name: "Aragorn", race: "Human", magic: true)
+        ]
+        
+        // 💡 Шаблон для всех задач:
+        
+        let grouped = characters.reduce(into: [String: [String]]()) { resultDictionary, char in
+            let key = char.magic ? "Magical" : "Ordinary"
+            resultDictionary[key, default: []].append(char.name)// Добавляю char.name/char.race в result
+        }
+        print("Группировка 'магические/обычные' через reduce(into:)")
+        for (key, values) in grouped.sorted(by: { $0.key < $1.key }) {
+            print("\(key): \(values.joined(separator: ", "))")
+        }
+    }
+} /* Задача 3ag.7: 📝 Группировка 'магические/обычные' через reduce(into:).
+   Группировка 'магические/обычные' через reduce(into:)
+   Magical: Gandalf, Legolas, Aragorn
+   Ordinary: Frodo, Sam */
