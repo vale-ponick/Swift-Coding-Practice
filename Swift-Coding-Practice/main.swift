@@ -17,3 +17,5 @@ Chapter2_Strings.runAllTasks()
 print() // Пустая строка для разделения
 Chapter3_Arrays.runAllTasks()
 print()
+Chapter4_Dictionaries.runAllTasks()
+print()
