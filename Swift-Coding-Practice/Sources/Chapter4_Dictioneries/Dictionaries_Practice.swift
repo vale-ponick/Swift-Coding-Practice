@@ -20,7 +20,7 @@ public struct Chapter4_Dictionaries {
         task4a_3()
         task4a_4()
         task4a_5()
-       
+        
     } // Добавляй новые задачи тут
     
     static func task4_1() {
@@ -43,7 +43,7 @@ public struct Chapter4_Dictionaries {
             11: "november",
             12: "december"
         ]
-
+        
         print("Месяцы на английском: \(monthsLatin[1] ?? "unknown")") // словарь возвращает String?, а не массив. Нужно ?? "unknown" или ?? "" // Месяцы на английском: january
         
         let monthsCirillic = [
@@ -96,7 +96,7 @@ public struct Chapter4_Dictionaries {
            Tu: Tuesday
            We: Wednesday
            Th: Thursday */
-      
+        
         let monthDays = [1: 31, 2: 28, 3: 31, 4: 30] // числовые значения
         print("Дни месяца: \(monthDays[1] ?? 0)") //
         
@@ -129,10 +129,10 @@ public struct Chapter4_Dictionaries {
         // Сравнение праздников
         print("UK January: \(ukHolidays[1] ?? [])")
         // ["New Year's Day", "Burn's Night"]
-
+        
         print("US January: \(usHolidays[1] ?? [])")
         // ["New Year's Day", "Martin Luther King Jr. Day"]
-
+        
         // Уникальные британские праздники
         let uniqueUK = ukHolidays.values.flatMap { $0 }.filter { !usHolidays.values.flatMap { $0 }.contains($0) }
         print("Unique UK holidays: \(uniqueUK)")
@@ -186,7 +186,7 @@ public struct Chapter4_Dictionaries {
             emptyDict = [
                 "Abba": ["Dancing Queen", "Money, Money, Money", "Waterloo"],
                 "Boney-M": ["Daddy Cool", "Rasputin", "River of Babylon", "One-Way Ticket"]
-                ]
+            ]
             print("Добавлены значения: \(emptyDict)") // Добавлены значения: ["Boney-M": ["Daddy Cool", "Rasputin", "River of Babylon", "One-Way Ticket"], "Abba": ["Dancing Queen", "Money, Money, Money", "Waterloo"]]
         }
     }
@@ -220,21 +220,153 @@ public struct Chapter4_Dictionaries {
     // Dictionaries: Advanced Level
     
     static func task4a_1() {
-        print("Задача 4a.1: Создай словарь, где ключ - фамилия солдата, а значение - его приветствие.")
+        print("Задача 4a.1: Создай словарь, где ключ - звание моряка, а значение - его приветствие.")
+        
+        let navalGreetings = [
+            "Seaman": "Ahoy, Captain!",
+            "Boatswain": "Aye aye, sir!",
+            "Lieutenant": "Good day, Lieutenant!",
+            "Captain": "Captain on deck!",
+            "Admiral": "Three cheers for the Admiral!"
+        ]
+        
+        print("Морские приветствия:")
+        for (rank, greeting) in navalGreetings.sorted(by: { $0.key < $1.key }) {
+            print("\(rank): \(greeting)")
+        }
+        
+        // Дополнительно: случайное приветствие
+        let randomRank = navalGreetings.keys.randomElement()!
+        print("\nСлучайное приветствие:")
+        print("\(randomRank): \(navalGreetings[randomRank]!)")
     }
+    /*   Задача 4a.1: Создай словарь, где ключ - звание моряка, а значение - его приветствие.
+     Морские приветствия:
+     Admiral: Three cheers for the Admiral!
+     Boatswain: Aye aye, sir!
+     Captain: Captain on deck!
+     Lieutenant: Good day, Lieutenant!
+     Seaman: Ahoy, Captain!
+     
+     Случайное приветствие:
+     Lieutenant: Good day, Lieutenant!   */
+    
     static func task4a_2() {
-        print("Задача 4a.2: В цикле пройдись по ВСЕМ ключам и распечатай фамилию каждого солдата. ")
+        print("Задача 4a.2: В цикле пройдись по ВСЕМ ключам и распечатай звание каждого моряка. ")
+        let navalGreetings = [
+            "Seaman": "Ahoy, Captain!",
+            "Boatswain": "Aye aye, sir!",
+            "Lieutenant": "Good day, Lieutenant!",
+            "Captain": "Captain on deck!",
+            "Admiral": "Three cheers for the Admiral!"
+        ]
+        
+        print("Звание каждого моряка:")
+        for (rank, _) in navalGreetings.sorted(by: { $0.key < $1.key }) {
+            print("\(rank)")
+        }
     }
+    /* Задача 4a.3: В цикле пройдись по ВСЕМ ключам и распечатай звание каждого моряка.
+     Звание каждого моряка:
+     Admiral
+     Boatswain
+     Captain
+     Lieutenant
+     Seaman  */
+    
     static func task4a_3() {
-        print("Задача 4a.3: В цикле пройдись по ВСЕМ ключам и распечатай приветствие каждого солдата. ")
+        print("Задача 4a.3: В цикле пройдись по ВСЕМ ключам и распечатай приветствие каждого моряка. ")
+        let navalGreetings = [
+            "Seaman": "Ahoy, Captain!",
+            "Boatswain": "Aye aye, sir!",
+            "Lieutenant": "Good day, Lieutenant!",
+            "Captain": "Captain on deck!",
+            "Admiral": "Three cheers for the Admiral!"
+        ]
+        
+        print("Приветствие каждого моряка:")
+        for (_, greeting) in navalGreetings.sorted(by: { $0.key < $1.key }) {
+            print("\(greeting)")
+        }
     }
+    /*  Задача 4a.3: В цикле пройдись по ВСЕМ ключам и распечатай приветствие каждого моряка.
+     Приветствие каждого моряка:
+     Ahoy, Captain!
+     Good day, Lieutenant!
+     Captain on deck!
+     Aye aye, sir!
+     Three cheers for the Admiral! */
+    
     static func task4a_4() {
-        print("Задача 4a.4: Отсортируй словарь так, чтобы фамилии шли по алфавиту.")
+        print("Задача 4a.4: Отсортируй словарь так, чтобы звания шли по алфавиту.")
+        
+        let navalGreetings = [
+            "Seaman": "Ahoy, Captain!",
+            "Boatswain": "Aye aye, sir!",
+            "Lieutenant": "Good day, Lieutenant!",
+            "Captain": "Captain on deck!",
+            "Admiral": "Three cheers for the Admiral!"
+        ]
+        
+        print("Звания моряков по алфавиту:")
+        for (ranc, _) in navalGreetings.sorted(by: { $0.key.first ?? " " < $1.key.first ?? " " }) {
+            print("\(ranc)")
+        }
     }
+    /* Задача 4a.4: Отсортируй словарь так, чтобы звания шли по алфавиту.
+     Звания моряков по алфавиту:
+     Admiral
+     Boatswain
+     Captain
+     Lieutenant
+     Seaman */
+    
     static func task4a_5() {
-        print("Задача 4a.5: Создай логическую проверку: если ключ словаря - Иванов, то скажи, что это снайпер. Сделай тоже самлое со ВСЕМИ ключами.")
+        print("Задача 4a.5: Создай логическую проверку: если ключ словаря - адмирал, то скажи, что это адмирал. Сделай тоже самое со ВСЕМИ ключами.")
+        let navalGreetings = [
+            "Seaman": "Ahoy, Captain!",
+            "Boatswain": "Aye aye, sir!",
+            "Lieutenant": "Good day, Lieutenant!",
+            "Captain": "Captain on deck!",
+            "Admiral": "Three cheers for the Admiral!"
+        ]
+        for (rank, _) in navalGreetings {
+            if rank == "Admiral" {
+                print("Это адмирал")
+            } else if rank == "Lieutenant" {
+                    print("Это лейтенант")
+            } else if rank == "Captain" {
+                print("Это капитан")
+            } else if rank == "Boatswain" {
+                print("Это боцман")
+            } else {
+                print("Это матрос")
+            }
+            
+            for (rank, _) in navalGreetings {
+                switch rank {
+                case "Admiral": print("Это адмирал")
+                case "Lieutenant": print("Это лейтенант")
+                case "Captain": print("Это капитан")
+                case "Boatswain": print("Это боцман")
+                default: print("Это матрос")
+                }
+            }
+        }
     }
 }
-    
-    
-    
+    /* Задача 4a.5: Создай логическую проверку: если ключ словаря - адмирал, то скажи, что это адмирал. Сделай тоже самое со ВСЕМИ ключами.
+     Ошибка
+     Ошибка
+     Ошибка
+     Ошибка
+     Это адмирал
+     
+     Задача 4a.5: Создай логическую проверку: если ключ словаря - адмирал, то скажи, что это адмирал. Сделай тоже самое со ВСЕМИ ключами.
+     Это боцман
+     Это лейтенант
+     Это адмирал
+     Это матрос
+     Это капитан    */
+
+
