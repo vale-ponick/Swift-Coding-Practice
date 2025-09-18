@@ -166,18 +166,245 @@ public struct Chapter5_Tuples {
     // Tuples Practice: Advanced Level
 
 static func task5a_1() {
-    print("Задача 5a.1: Создай 10 кортежей-разработчиков...")
+    print("Задача 5a.1: Создай 12 кортежей-разработчиков, каждый с 4 параметрами: имя, возраст, опыт, специальность. Пока НЕ задавай никаких данных.")
+    
+    var developers = Array(repeating: (name: "", age: 0, exp: 0, spec: ""), count: 12)
+    print("✅ Массив создан. Элементов: \(developers.count)")
+    
+    // Полная база данных программистов
+    let legendaryProgrammers = [
+        (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
+        (name: "Mike Rockwell", age: 55, exp: 25, spec: "Apple Vision Pro", company: "Apple"),
+        (name: "Andreas Wendker", age: 52, exp: 28, spec: "Tools for Xcode, Swift", company: "Apple"),
+        (name: "Kevin Lynch", age: 58, exp: 32, spec: "Apple Watch", company: "Apple"),
+        (name: "Alan Dye", age: 49, exp: 20, spec: "UI Design iOS/macOS", company: "Apple"),
+        (name: "Johny Srouji", age: 59, exp: 30, spec: "Apple Silicon", company: "Apple"),
+        (name: "Steve Wozniak", age: 73, exp: 50, spec: "Apple Co-founder", company: "Apple"),
+        (name: "Brendan Eich", age: 62, exp: 35, spec: "JavaScript", company: "Brave"),
+        (name: "Guido van Rossum", age: 68, exp: 35, spec: "Python", company: "Microsoft"),
+        (name: "Anders Hejlsberg", age: 63, exp: 40, spec: "Turbo Pascal, Delphi, C#", company: "Microsoft"),
+        (name: "James Gosling", age: 69, exp: 40, spec: "Java", company: "Amazon"),
+        (name: "Margaret Hamilton", age: 87, exp: 50, spec: "Apollo mission software", company: "NASA")
+    ]
 }
     static func task5a_2() {
-        print("Задача 5a.2: После создания всем задайте имя...")
+        print("Задача 5a.2: После создания ВСЕМ задайте имя, 3 из них задайте возраст(любые значения выше 23), 4 - опыт и только 2 - специальность.")
+        
+        var developers = Array(repeating: (name: "", age: 0, exp: 0, spec: ""), count: 12)
+        
+        // 1. ВСЕМ задаем имена
+        developers[0].name = "Craig Federighi"
+        developers[1].name = "Mike Rockwell"
+        developers[2].name = "Andreas Wendker"
+        developers[3].name = "Kevin Lynch"
+        developers[4].name = "Alan Dye"
+        developers[5].name = "Johny Srouji"
+        developers[6].name = "Steve Wozniak"
+        developers[7].name = "Brendan Eich"
+        developers[8].name = "Guido van Rossum"
+        developers[9].name = "Anders Hejlsberg"
+        developers[10].name = "James Gosling"
+        developers[11].name = "Margaret Hamilton"
+        
+        // 2. 3 из них задаем возраст (>23)
+        developers[0].age = 56  // Craig Federighi
+        developers[1].age = 55  // Mike Rockwell
+        developers[11].age = 87 // Margaret Hamilton
+        
+        // 3. 4 из них задаем опыт
+        developers[2].exp = 28  // Andreas Wendker
+        developers[8].exp = 35  // Guido van Rossum
+        developers[9].exp = 35  // Anders Hejlsberg
+        developers[10].exp = 40 // James Gosling
+        
+        // 4. только 2 из них задаем специальность (ПРАВИЛЬНЫЕ специальности)
+        developers[0].spec = "iOS and macOS"           // Craig Federighi
+        developers[11].spec = "Apollo mission software" // Margaret Hamilton
+        
+        print("✅ Данные заполнены по условию!")
     }
+    
     static func task5a_3() {
-        print("Задача 5a.3: Используя проверки if-else...")
+        print("Задача 5a.3: Используя проверки if-else, выведи сообщение по логике: если возраст больше 23, есть опыт и специальность это iOS - в консоль выведи имя и сообщение - принят на работу.")
+        
+        let legendaryProgrammers = [
+            (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Mike Rockwell", age: 55, exp: 25, spec: "iOS and macOS", company: "Apple"),
+            (name: "Andreas Wendker", age: 52, exp: 28, spec: "iOS and macOS", company: "Apple"),
+            (name: "Kevin Lynch", age: 58, exp: 32, spec: "iOS and macOS", company: "Apple"),
+            (name: "Alan Dye", age: 49, exp: 20, spec: "iOS and macOS", company: "Apple"),
+            (name: "Johny Srouji", age: 59, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Steve Wozniak", age: 73, exp: 50, spec: "iOS and macOS", company: "Apple"),
+            (name: "Brendan Eich", age: 62, exp: 35, spec: "JavaScript", company: "Brave"),
+            (name: "Guido van Rossum", age: 68, exp: 35, spec: "Python", company: "Microsoft"),
+            (name: "Anders Hejlsberg", age: 63, exp: 40, spec: "Turbo Pascal, Delphi, C#", company: "Microsoft"),
+            (name: "James Gosling", age: 69, exp: 40, spec: "Java", company: "Amazon"),
+            (name: "Margaret Hamilton", age: 87, exp: 50, spec: "Apollo mission software", company: "NASA")
+        ]
+        
+        for proger in legendaryProgrammers {
+            if proger.age > 23 && proger.exp > 1 && proger.spec == "iOS and macOS" {
+                print("\(proger.name) принят на работу в Apple Corporation.")
+            } else {
+                print("Кандидат не прошел собеседование")
+            }
+        }
     }
+    /* Craig Federighi принят на работу в Apple Corporation.
+     Mike Rockwell принят на работу в Apple Corporation.
+     Andreas Wendker принят на работу в Apple Corporation.
+     Kevin Lynch принят на работу в Apple Corporation.
+     Alan Dye принят на работу в Apple Corporation.
+     Johny Srouji принят на работу в Apple Corporation.
+     Steve Wozniak принят на работу в Apple Corporation.
+     Кандидат не прошел собеседование
+     Кандидат не прошел собеседование
+     Кандидат не прошел собеседование
+     Кандидат не прошел собеседование
+     Кандидат не прошел собеседование */
+    
     static func task5a_4() {
-        print("Задача 5a.4: Тех, кто младьше 21 года...")
+        print("Задача 5a.4: Тех, кто младше 23, добавьте в массив и отсортируйте. Найдите в этом массиве max значение и удалите его.")
+        
+        let legendaryProgrammers = [
+            (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Mike Rockwell", age: 55, exp: 25, spec: "iOS and macOS", company: "Apple"),
+            (name: "Andreas Wendker", age: 52, exp: 28, spec: "iOS and macOS", company: "Apple"),
+            (name: "Kevin Lynch", age: 58, exp: 32, spec: "iOS and macOS", company: "Apple"),
+            (name: "Alan Dye", age: 49, exp: 20, spec: "iOS and macOS", company: "Apple"),
+            (name: "Johny Srouji", age: 59, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Steve Wozniak", age: 73, exp: 50, spec: "iOS and macOS", company: "Apple"),
+            (name: "Brendan Eich", age: 62, exp: 35, spec: "JavaScript", company: "Brave"),
+            (name: "Guido van Rossum", age: 68, exp: 35, spec: "Python", company: "Microsoft"),
+            (name: "Anders Hejlsberg", age: 63, exp: 40, spec: "Turbo Pascal, Delphi, C#", company: "Microsoft"),
+            (name: "James Gosling", age: 69, exp: 40, spec: "Java", company: "Amazon"),
+            (name: "Margaret Hamilton", age: 87, exp: 50, spec: "Apollo mission software", company: "NASA")
+        ]
+        
+        var juniorProgers = legendaryProgrammers.filter { $0.age < 23 }
+        
+        // Проверяем, есть ли молодые программисты
+        if juniorProgers.isEmpty {
+            print("В массиве нет программистов младше 23 лет")
+            return
+        }
+        
+        juniorProgers.sort(by: { $0.age < $1.age })
+        print("Отсортированный массив молодых программистов:")
+        for proger in juniorProgers {
+            print("\(proger.name), возраст: \(proger.age)")
+        }
+        
+        // Находим максимальное значение (самого старшего среди молодых)
+        if let maxAgeProger = juniorProgers.max(by: { $0.age < $1.age }) {
+            print("\nMax значение: \(maxAgeProger.name), возраст: \(maxAgeProger.age)")
+            
+            if let index = juniorProgers.firstIndex(where: {
+                $0.name == maxAgeProger.name && $0.age == maxAgeProger.age
+            }) {
+                juniorProgers.remove(at: index) // Исправлено: index вместо Index
+                print("Удалили max значение")
+            }
+        }
+        print("\nИтоговый массив после удаления:")
+        
+        if juniorProgers.isEmpty {
+            print("Массив пуст")
+        } else {
+            for programmer in juniorProgers {
+                print("\(programmer.name), возраст: \(programmer.age)")
+            }
+        }
     }
+    /* Задача 5a.4: Тех, кто младше 23, добавьте в массив и отсортируйте. Найдите в этом массиве max значение и удалите его.
+     В массиве нет программистов младше 23 лет */
+    
     static func task5a_5() {
-        print("Задача 5a.5: Создай масив и в проверку из п. 3 добавьте ...")
+        print("Задача 5a.5: Создай массив и в проверку из п. 3 добавьте условие: если специальность не iOS - добавить в созданный массив.")
+        
+        let legendaryProgrammers = [
+            (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Mike Rockwell", age: 55, exp: 25, spec: "iOS and macOS", company: "Apple"),
+            (name: "Andreas Wendker", age: 52, exp: 28, spec: "iOS and macOS", company: "Apple"),
+            (name: "Kevin Lynch", age: 58, exp: 32, spec: "iOS and macOS", company: "Apple"),
+            (name: "Alan Dye", age: 49, exp: 20, spec: "iOS and macOS", company: "Apple"),
+            (name: "Johny Srouji", age: 59, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            (name: "Steve Wozniak", age: 73, exp: 50, spec: "iOS and macOS", company: "Apple"),
+            (name: "Brendan Eich", age: 62, exp: 35, spec: "JavaScript", company: "Brave"),
+            (name: "Guido van Rossum", age: 68, exp: 35, spec: "Python", company: "Microsoft"),
+            (name: "Anders Hejlsberg", age: 63, exp: 40, spec: "Turbo Pascal, Delphi, C#", company: "Microsoft"),
+            (name: "James Gosling", age: 69, exp: 40, spec: "Java", company: "Amazon"),
+            (name: "Margaret Hamilton", age: 87, exp: 50, spec: "Apollo mission software", company: "NASA")
+        ]
+        
+        // Создаем массив для не-iOS программистов
+         var nonIOSProgrammers = [(name: String, age: Int, exp: Int, spec: String, company: String)]()
+         
+         for proger in legendaryProgrammers {
+             if proger.age > 23 && proger.exp > 1 && !proger.spec.contains("iOS") {
+                 // Добавляем в массив не-iOS программистов
+                 nonIOSProgrammers.append(proger)
+                 print("\(proger.name) добавлен в созданный массив.")
+             } else {
+                 print("Кандидат не прошел собеседование: \(proger.name)")
+             }
+         }
+         
+         // Выводим итоговый массив
+         print("\nИтоговый массив не-iOS программистов:")
+         if nonIOSProgrammers.isEmpty {
+             print("Массив пуст")
+         } else {
+             for programmer in nonIOSProgrammers {
+                 print("\(programmer.name) - \(programmer.spec) (\(programmer.company))")
+             }
+         }
+     }
+    /*  Итоговый массив не-iOS программистов:
+     Brendan Eich - JavaScript (Brave)
+     Guido van Rossum - Python (Microsoft)
+     Anders Hejlsberg - Turbo Pascal, Delphi, C# (Microsoft)
+     James Gosling - Java (Amazon)
+     Margaret Hamilton - Apollo mission software (NASA) */
+    
+    // Альтернативный вариант с функциональным подходом:
+
+    static func task5ab_5() {
+        print("Задача 5ab.5: Создай массив и в проверку из п. 3 добавьте условие: если специальность не iOS - добавить в созданный массив.")
+        
+        let legendaryProgrammers = [
+            (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
+            // ... остальной массив
+        ]
+        
+        // Фильтруем и создаем массив за один шаг
+        let nonIOSProgrammers = legendaryProgrammers.filter { proger in
+            proger.age > 23 && proger.exp > 1 && !proger.spec.contains("iOS")
+        }
+        
+        // Выводим результаты
+        for proger in legendaryProgrammers {
+            if proger.age > 23 && proger.exp > 1 && !proger.spec.contains("iOS") {
+                print("\(proger.name) добавлен в созданный массив.")
+            } else {
+                print("Кандидат не прошел собеседование: \(proger.name)")
+            }
+        }
+        
+        // Выводим итоговый массив
+        print("\nИтоговый массив не-iOS программистов:")
+        if nonIOSProgrammers.isEmpty {
+            print("Массив пуст")
+        } else {
+            for programmer in nonIOSProgrammers {
+                print("\(programmer.name) - \(programmer.spec) (\(programmer.company))")
+            }
+        }
     }
+    /* Итоговый массив не-iOS программистов:
+     Brendan Eich - JavaScript (Brave)
+     Guido van Rossum - Python (Microsoft)
+     Anders Hejlsberg - Turbo Pascal, Delphi, C# (Microsoft)
+     James Gosling - Java (Amazon)
+     Margaret Hamilton - Apollo mission software (NASA) */
 }
