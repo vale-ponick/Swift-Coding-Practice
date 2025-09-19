@@ -10,7 +10,7 @@ import Foundation
 print("Hello, vale.ponick!") // Hello, vale.ponick!
 print("Hi, Valery") // Hi, Valery
 
-// Запуск всех задач
+ // Запуск всех задач
 Chapter1_Lets_Vars.runAllTasks()
 print()
 Chapter2_Strings.runAllTasks()
@@ -21,3 +21,8 @@ Chapter4_Dictionaries.runAllTasks()
 print()
 Chapter5_Tuples.runAllTasks()
 print()
+Chapter6_Loops.runAllTasks()
+print()
+
+
+
