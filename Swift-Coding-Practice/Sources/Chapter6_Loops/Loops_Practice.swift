@@ -12,7 +12,8 @@ public struct Chapter6_Loops {
         task6_1()
         task6_2()
         task6_3()
-        // Loops Practice: Advanced Level
+        task6_4()
+        // Control Flow. Loops Practice: Advanced Level
         
         
     } // Добавляй новые задачи тут
@@ -102,7 +103,10 @@ public struct Chapter6_Loops {
         // вар. 1 switch
         
         var grade = 12
-        
+        if !(1...12).contains(grade) {
+            print("Такой оценки нет")
+            return
+        }
         switch grade {
         case 1...4:
             print("Ужасно!")
@@ -113,22 +117,45 @@ public struct Chapter6_Loops {
         case 12:
             print("Ты - молодец! Отлично!")
         default:
-            print("Такой оценки нет")
-        } // Ты - молодец! Отлично!
+            break // Здесь не попадем
+        }
         
         // вар. 1 'if - else'
         grade = 13
         
-        if grade < 5 {
-            print("Ужасно!")
-        } else if grade < 7 { // Сюда попали только если grade >= 5
-            print("Слабо")
-        } else if grade < 11 { // Сюда попали только если grade >= 7
-            print("Хорошо")
-        } else if grade <= 12 { // Сюда попали только если grade >= 11
-            print("Ты - молодец! Отлично!")
-        } else {
-            print("Такой оценки нет") // Такой оценки нет
-        }
+        // Система оценивания через if
+           if grade < 1 || grade > 12 {
+               print("Такой оценки нет")
+           } else if grade <= 3 {
+               print("Очень плохо")
+           } else if grade <= 5 {
+               print("Плохо")
+           } else if grade <= 7 {
+               print("Удовлетворительно")
+           } else if grade <= 9 {
+               print("Хорошо")
+           } else if grade <= 11 {
+               print("Очень хорошо")
+           } else {
+               print("Отлично!")
+           }
+    }
+        static func task6_4() {
+            print("Задача 6.4: Control Flow. Создай цикл в цикле. В первом цикле интервал 200 раз, во втором - как доедем до 15, выйти из всех циклов.")
+            outerLoop: for num in 0...200 {
+                innerLoop: for number in 0...15 {
+                    print("num = \(num), number = \(number)")  // отладочный вывод
+                    
+                    if number == 15 {
+                        print("Достигли 15, прерываем все циклы")
+                        break outerLoop
+                    }
+                    if num == number {
+                        print("num == number, прерываем все циклы")
+                        break outerLoop
+                    }
+                }
+            }
+            print("Циклы завершены")
     }
 }
