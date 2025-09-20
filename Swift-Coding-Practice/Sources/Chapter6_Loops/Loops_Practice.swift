@@ -15,8 +15,9 @@ public struct Chapter6_Loops {
         task6_4()
         task6_5()
         task6_6()
+        task6_7()
         // Control Flow. Loops Practice: Advanced Level
-        
+        task6a_1()
         
     } // Добавляй новые задачи тут
     
@@ -375,9 +376,50 @@ public struct Chapter6_Loops {
             }
             return resultEvenNums
         }
-      print(returnEvenNums(inputNums: [1, 2, 4, 6, 8, 12, 23, 27, 32])) // [2, 4, 6, 8, 12]
+        print(returnEvenNums(inputNums: [1, 2, 4, 6, 8, 12, 23, 27, 32])) // [2, 4, 6, 8, 12]
     }
+    
+    static func task6_7() {
+        print("Задача 6.7: вывести числа от 1 до 'num', повторяя каждое число столько раз, чему равно само число.")
+        //  пример для n = 5      1
+        //                        22
+        //                        333
+        //                        4444
+        //                        55555
+        
+        func repeatNums(num: Int) {
+            if num > 12 {
+                print("Слишком большое число, max- 12")
+                return
+            }
+            for n in 1...num {
+                print(String(repeating: "\(n)", count: n))
+            }
+        }
+        repeatNums(num: 7)
+    }
+    
+    static func task6a_1() {
+        print("Задача 6a.1: Сыграем в шахматы. У меня есть некоторое количество фигур на доске.")
+
+        let cell: (tile: Character, rank: Int) = (tile: "a", rank: 1) // "a...h", 1...8
+
+        func isValidCell(_ cell: (tile: Character, rank: Int)) -> Bool {
+            return ("a"..."h").contains(cell.tile) && (1...8).contains(cell.rank)
+        }
+
+        let files: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h"]
+        let ranks: [Int] = [1, 2, 3, 4, 5, 6, 7, 8]
+
+        var chessBoard: [(tile: Character, rank: Int)] = []
+
+        for rank in ranks {
+            for file in files {
+                chessBoard.append((tile: file, rank: rank))
+            }
+        }
+
+        print(chessBoard)
+    }
+    /* [(tile: "a", rank: 1), (tile: "b", rank: 1), (tile: "c", rank: 1), (tile: "d", rank: 1), (tile: "e", rank: 1), (tile: "f", rank: 1), (tile: "g", rank: 1), (tile: "h", rank: 1), (tile: "a", rank: 2), (tile: "b", rank: 2), (tile: "c", rank: 2), (tile: "d", rank: 2), (tile: "e", rank: 2), (tile: "f", rank: 2), (tile: "g", rank: 2), (tile: "h", rank: 2), (tile: "a", rank: 3), (tile: "b", rank: 3), (tile: "c", rank: 3), (tile: "d", rank: 3), (tile: "e", rank: 3), (tile: "f", rank: 3), (tile: "g", rank: 3), (tile: "h", rank: 3), (tile: "a", rank: 4), (tile: "b", rank: 4), (tile: "c", rank: 4), (tile: "d", rank: 4), (tile: "e", rank: 4), (tile: "f", rank: 4), (tile: "g", rank: 4), (tile: "h", rank: 4), (tile: "a", rank: 5), (tile: "b", rank: 5), (tile: "c", rank: 5), (tile: "d", rank: 5), (tile: "e", rank: 5), (tile: "f", rank: 5), (tile: "g", rank: 5), (tile: "h", rank: 5), (tile: "a", rank: 6), (tile: "b", rank: 6), (tile: "c", rank: 6), (tile: "d", rank: 6), (tile: "e", rank: 6), (tile: "f", rank: 6), (tile: "g", rank: 6), (tile: "h", rank: 6), (tile: "a", rank: 7), (tile: "b", rank: 7), (tile: "c", rank: 7), (tile: "d", rank: 7), (tile: "e", rank: 7), (tile: "f", rank: 7), (tile: "g", rank: 7), (tile: "h", rank: 7), (tile: "a", rank: 8), (tile: "b", rank: 8), (tile: "c", rank: 8), (tile: "d", rank: 8), (tile: "e", rank: 8), (tile: "f", rank: 8), (tile: "g", rank: 8), (tile: "h", rank: 8)] */
 }
-   
-
-
