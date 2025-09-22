@@ -400,26 +400,79 @@ public struct Chapter6_Loops {
     }
     
     static func task6a_1() {
-        print("Задача 6a.1: Сыграем в шахматы. У меня есть некоторое количество фигур на доске.")
-
-        let cell: (tile: Character, rank: Int) = (tile: "a", rank: 1) // "a...h", 1...8
-
-        func isValidCell(_ cell: (tile: Character, rank: Int)) -> Bool {
-            return ("a"..."h").contains(cell.tile) && (1...8).contains(cell.rank)
-        }
-
-        let files: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h"]
-        let ranks: [Int] = [1, 2, 3, 4, 5, 6, 7, 8]
-
-        var chessBoard: [(tile: Character, rank: Int)] = []
-
-        for rank in ranks {
-            for file in files {
-                chessBoard.append((tile: file, rank: rank))
+        print("Задача 6a.1: Сыграем в шахматы. Напиши функцию, которая обрабатывает ход фигуры на доске.")
+        
+        // 1. ДАННЫЕ
+        var figures: [String: (x: Int, y: Int)?] = [
+            "White King": (x: 1, y: 1),
+            "White Pawn": (x: 2, y: 2),
+            "White Rook": (x: 8, y: 8),
+            "White Bishop": (x: 5, y: 3),
+            "Black Queen": (x: 3, y: 7),
+            "Black Knight": nil,
+            "Black King": (x: 2, y: 6)
+        ]
+        
+        // 2. ОПРЕДЕЛЕНИЕ ТИПА (Именованные кортежи)
+        typealias ChessMove = (from: (x: Int, y: Int), to: (x: Int, y: Int))
+        
+        // 3. ОПРЕДЕЛЕНИЕ ФУНКЦИИ
+        func makeMove(_ move: ChessMove, figures: inout [String: (x: Int, y: Int)?]) {
+            print("♟️ Пытаемся сделать ход с (\(move.from.x),\(move.from.y)) на (\(move.to.x),\(move.to.y))")
+            
+            // ШАГ 1: поиск фигуры
+            var movingFigureName: String? = nil
+            for (figureName, position) in figures {
+                if let pos = position, pos.x == move.from.x, pos.y == move.from.y {
+                    movingFigureName = figureName
+                    break
+                }
             }
+            
+            guard let figureName = movingFigureName else {
+                print("❌ На клетке (\(move.from.x),\(move.from.y)) нет фигуры!")
+                return
+            }
+            print("✅ Нашла фигуру: \(figureName)")
+            
+            // Шаг 2: Проверка конечной клетки
+            var capturedFigure: String? = nil
+            for (name, position) in figures {
+                if let pos = position, pos.x == move.to.x, pos.y == move.to.y {
+                    capturedFigure = name
+                    break
+                }
+            }
+            
+            if let captured = capturedFigure {
+                print("⚔️ Фигура \(figureName) съедает \(captured)!")
+                figures[captured] = nil
+            } else {
+                print("➡️ \(figureName) перемещается на пустую клетку")
+            }
+            // Шаг 3: Обновление позиции
+                figures[figureName] = (x: move.to.x, y: move.to.y)
+                print("🔄 Обновили позицию \(figureName) на \(move.to)")
+                
+                // Шаг 4: Проверка специальных условий
+                switch move.to {
+                case (let x, let y) where x == y:
+                    print("⚡ Шах по диагонали!")
+                case (_, 8):
+                    print("👑 Пешка превращается в ферзя!")
+                case (_, 1):
+                    print("👑 Пешка превращается в ферзя!")
+                default:
+                    print("✅ Ход завершен")
+                }
+                
+                print("————————————————————")
         }
-
-        print(chessBoard)
+        
+        // 4. ВЫЗОВ ФУНКЦИИ
+        let myMove: ChessMove = (from: (x: 1, y: 1), to: (x: 2, y: 2))
+        makeMove(myMove, figures: &figures)
     }
-    /* [(tile: "a", rank: 1), (tile: "b", rank: 1), (tile: "c", rank: 1), (tile: "d", rank: 1), (tile: "e", rank: 1), (tile: "f", rank: 1), (tile: "g", rank: 1), (tile: "h", rank: 1), (tile: "a", rank: 2), (tile: "b", rank: 2), (tile: "c", rank: 2), (tile: "d", rank: 2), (tile: "e", rank: 2), (tile: "f", rank: 2), (tile: "g", rank: 2), (tile: "h", rank: 2), (tile: "a", rank: 3), (tile: "b", rank: 3), (tile: "c", rank: 3), (tile: "d", rank: 3), (tile: "e", rank: 3), (tile: "f", rank: 3), (tile: "g", rank: 3), (tile: "h", rank: 3), (tile: "a", rank: 4), (tile: "b", rank: 4), (tile: "c", rank: 4), (tile: "d", rank: 4), (tile: "e", rank: 4), (tile: "f", rank: 4), (tile: "g", rank: 4), (tile: "h", rank: 4), (tile: "a", rank: 5), (tile: "b", rank: 5), (tile: "c", rank: 5), (tile: "d", rank: 5), (tile: "e", rank: 5), (tile: "f", rank: 5), (tile: "g", rank: 5), (tile: "h", rank: 5), (tile: "a", rank: 6), (tile: "b", rank: 6), (tile: "c", rank: 6), (tile: "d", rank: 6), (tile: "e", rank: 6), (tile: "f", rank: 6), (tile: "g", rank: 6), (tile: "h", rank: 6), (tile: "a", rank: 7), (tile: "b", rank: 7), (tile: "c", rank: 7), (tile: "d", rank: 7), (tile: "e", rank: 7), (tile: "f", rank: 7), (tile: "g", rank: 7), (tile: "h", rank: 7), (tile: "a", rank: 8), (tile: "b", rank: 8), (tile: "c", rank: 8), (tile: "d", rank: 8), (tile: "e", rank: 8), (tile: "f", rank: 8), (tile: "g", rank: 8), (tile: "h", rank: 8)] */
 }
+
+
