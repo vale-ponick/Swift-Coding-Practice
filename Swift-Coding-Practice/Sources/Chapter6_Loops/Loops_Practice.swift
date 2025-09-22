@@ -1,5 +1,5 @@
 //
-//  Loops_Practice.swift
+//  Loops-Practice.swift
 //  Swift-Coding-Practice
 //
 //  Created by Валерия Пономарева on 19.09.2025.
