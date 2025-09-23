@@ -78,7 +78,7 @@ print(weatherPieces) // ИСХОДНЫЙ НЕизменный массив: ["Su
 }
     
     static func task7_2() {
-        print("Задача 7.1: Создай ...")
+        print("Задача 7.1: Создай ... ююю бббб")
     }
     static func task7_3() {
         print("Задача 7.1: Создай ...")
