@@ -23,6 +23,6 @@ Chapter5_Tuples.runAllTasks()
 print()
 Chapter6_Loops.runAllTasks()
 print()
-Chapter7_Functions.runAllTasks()
-print()
+
+
 
