@@ -12,6 +12,9 @@ public struct Chapter7_Functions {
         task7_1()
         task7_2()
         task7_3()
+        task7a_3()
+        task7b_3()
+        task7с_3()
         task7_4()
         task7_5()
     } // Добавляй новые задачи тут
@@ -232,18 +235,184 @@ public struct Chapter7_Functions {
      Средний балл класса: 3.9   */
     
     static func task7_3() {
-        print("Задача 7.1: Создай функцию, которая принимает имя и фамилию, потом положить все это в массив и вывести результат в консоль.")
-        struct Human {
+        print("Задача 7.1: Создай функцию, которая принимает имя и фамилию, потом положить все это в МАССИВ и вывести результат в консоль.")
+        
+        // вар. 1 возвращаем МАССИВ
+        struct Person {
             let name: String
             let surname: String
+            let age: String
         }
         
-        func add(name: String, surname: String) -> [String] { // входные параметры - две строки
-            return [name, surname]
+        func add(name: String, surname: String, age: String) -> [String] {
+            return [name, surname, age]
         }
-        let humanInfo = add(name: "Joe", surname: "Smith")
-        print(humanInfo)
+        let humanInfo = add(name: "Joe", surname: "Smith", age: "41")
+        print(humanInfo) // ["Joe", "Smith", "41"]
     }
+    
+    static func task7a_3() {
+        print("Задача 7.1: Создай функцию, которая принимает имя и фамилию, потом положить все это в МАССИВ и вывести результат в консоль.")
+        
+        // вар. 2 это МАССИВ СТРУКТУР
+        
+        struct Beatle {
+            let name: String
+            let instrument: String
+            let role: String
+            let birthYear: Int
+            let signatureSong: String
+        }
+        
+        func getAllBeatles() -> [Beatle] {
+            return [
+                Beatle(name: "John Lennon", instrument: "guitar", role: "singer", birthYear: 1940, signatureSong: "Imagine"),
+                Beatle(name: "Paul McCartney", instrument: "bass", role: "singer", birthYear: 1942, signatureSong: "Yesterday"),
+                Beatle(name: "George Harrison", instrument: "guitar", role: "lead guitar", birthYear: 1943, signatureSong: "Here Comes the Sun"),
+                Beatle(name: "Ringo Starr", instrument: "drums", role: "drummer", birthYear: 1940, signatureSong: "With a Little Help from My Friends")
+            ]
+        }
+        
+        let beatles = getAllBeatles()
+        
+        beatles.forEach { beatle in
+            print("🎵 \(beatle.name)")
+            print("   Instrument: \(beatle.instrument)")
+            print("   Signature Song: \(beatle.signatureSong)")
+            print("   BirthYear: \(beatle.birthYear)")
+            print("---")
+        }
+    } /* 🎵 John Lennon
+       Instrument: guitar
+       Signature Song: Imagine
+       BirthYear: 1940
+       ---
+       🎵 Paul McCartney
+       Instrument: bass
+       Signature Song: Yesterday
+       BirthYear: 1942
+       ---
+       🎵 George Harrison
+       Instrument: guitar
+       Signature Song: Here Comes the Sun
+       BirthYear: 1943
+       ---
+       🎵 Ringo Starr
+       Instrument: drums
+       Signature Song: With a Little Help from My Friends
+       BirthYear: 1940  */
+    
+    
+    static func task7b_3() {
+        print("Задача 7.1: Создай функцию, которая принимает имя и фамилию, потом положить все это в МАССИВ и вывести результат в консоль.")
+        // var. 3 - это МАССИВ СЛОВАРЕЙ
+        
+        func getABBA() -> [[String: Any]] {
+            return [
+                [
+                    "name": "Agnetha Fältskog",
+                    "instrument": "vocals",
+                    "role": "soprano",
+                    "birthYear": 1950,
+                    "signatureSong": "Dancing Queen"
+                ],
+                [
+                    "name": "Björn Ulvaeus",
+                    "instrument": "guitar",
+                    "role": "composer",
+                    "birthYear": 1945,
+                    "signatureSong": "Mamma Mia"
+                ],
+                [
+                    "name": "Benny Andersson",
+                    "instrument": "keyboard",
+                    "role": "composer",
+                    "birthYear": 1946,
+                    "signatureSong": "Waterloo"
+                ],
+                [
+                    "name": "Anni-Frid Lyngstad",
+                    "instrument": "vocals",
+                    "role": "alto",
+                    "birthYear": 1945,
+                    "signatureSong": "The Winner Takes It All"
+                ]
+            ]
+        }
+        
+        func printABBA() {
+            getABBA().forEach { member in
+                print("🎤 \(member["name"] ?? "Unknown")")
+                print("   Instrument: \(member["instrument"] ?? "Unknown")")
+                print("   Signature Song: \(member["signatureSong"] ?? "Unknown")")
+                print("---")
+            }
+        }
+        printABBA()
+    } /*  🎤 Agnetha Fältskog
+       Instrument: vocals
+       Signature Song: Dancing Queen
+       ---
+       🎤 Björn Ulvaeus
+       Instrument: guitar
+       Signature Song: Mamma Mia
+       ---
+       🎤 Benny Andersson
+       Instrument: keyboard
+       Signature Song: Waterloo
+       ---
+       🎤 Anni-Frid Lyngstad
+       Instrument: vocals
+       Signature Song: The Winner Takes It All
+       --- */
+    
+    static func task7с_3() {
+        print("\n=== Вариант 1: Массив массивов (Queen) ===")
+        
+        func getQueen() -> [[String]] {
+            return [
+                ["Freddie Mercury", "vocals", "singer", "1946", "Bohemian Rhapsody"],
+                ["Brian May", "guitar", "lead guitar", "1947", "We Will Rock You"],
+                ["John Deacon", "bass", "bassist", "1951", "Another One Bites the Dust"],
+                ["Roger Taylor", "drums", "drummer", "1949", "Radio Ga Ga"]
+            ]
+        }
+        
+        let queen = getQueen()
+        
+        queen.forEach { member in
+            print("🎸 \(member[0])")          // имя
+            print("   Instrument: \(member[1])") // инструмент
+            print("   Role: \(member[2])")      // роль
+            print("   Birth Year: \(member[3])") // год рождения
+            print("   Hit Song: \(member[4])")   // песня
+            print("---")
+        }
+    } /* === Вариант 1: Массив массивов (Queen) ===
+       🎸 Freddie Mercury
+          Instrument: vocals
+          Role: singer
+          Birth Year: 1946
+          Hit Song: Bohemian Rhapsody
+       ---
+       🎸 Brian May
+          Instrument: guitar
+          Role: lead guitar
+          Birth Year: 1947
+          Hit Song: We Will Rock You
+       ---
+       🎸 John Deacon
+          Instrument: bass
+          Role: bassist
+          Birth Year: 1951
+          Hit Song: Another One Bites the Dust
+       ---
+       🎸 Roger Taylor
+          Instrument: drums
+          Role: drummer
+          Birth Year: 1949
+          Hit Song: Radio Ga Ga
+       --- */
     
     static func task7_4() {
         print("Задача 7.1: Создай функцию, которая принимает параметры и вычисляет площадь круга.")
@@ -252,3 +421,4 @@ public struct Chapter7_Functions {
         print("Задача 7.1: Создай словарь с именами учеников, где ключ - name, а значение - (1 tuple из 5 имен) и (2 кортеж из 5 оценок). Распечатай только имена по ключу.")
     }
 }
+
