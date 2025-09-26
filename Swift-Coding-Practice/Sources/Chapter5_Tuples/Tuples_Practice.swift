@@ -100,7 +100,7 @@ public struct Chapter5_Tuples {
         
         // вложенная распаковка:
         
-        let (offence, number) = noLicense
+        let (_, number) = noLicense
         print(" \(noLicense.0): \(number) случаев") // Водители без прав: 12 случаев
     }
     
@@ -113,7 +113,7 @@ public struct Chapter5_Tuples {
     static func task5_4() {
         print("Задача 5.4: Создай второй кортеж - напарника. Задай другие значения.")
         
-        let secondProtocol = (
+        _ = (
             speeding: ("Превышение скорости", 27),
             drunk: ("Вождение в нетрезвом виде", 5),
             noLicense: ("Водители без прав", 21)
@@ -144,7 +144,7 @@ public struct Chapter5_Tuples {
             )
         print("Разница по индексу: \(thirdProtocol.0), \(thirdProtocol.1), \(thirdProtocol.2).") // Разница: 2, -6, -9.
         print("Разница по имени:  Вождение в нетрезвом виде - \(thirdProtocol.0)")// Разница по имени:  Вождение в нетрезвом виде - 2
-        let (drunk, speeding, noLiense) = thirdProtocol
+        let (_, _, _) = thirdProtocol
         print(" Разница 'распаковка кортежа в отдельные свойства':  Водители без прав \(thirdProtocol.2) случаев.") //  Разница 'распаковка кортежа в отдельные свойства':  Водители без прав -9 случаев.
         
         let thirdProtocolPolice = (
@@ -168,11 +168,11 @@ public struct Chapter5_Tuples {
 static func task5a_1() {
     print("Задача 5a.1: Создай 12 кортежей-разработчиков, каждый с 4 параметрами: имя, возраст, опыт, специальность. Пока НЕ задавай никаких данных.")
     
-    var developers = Array(repeating: (name: "", age: 0, exp: 0, spec: ""), count: 12)
+    let developers = Array(repeating: (name: "", age: 0, exp: 0, spec: ""), count: 12)
     print("✅ Массив создан. Элементов: \(developers.count)")
     
     // Полная база данных программистов
-    let legendaryProgrammers = [
+    _ = [
         (name: "Craig Federighi", age: 56, exp: 30, spec: "iOS and macOS", company: "Apple"),
         (name: "Mike Rockwell", age: 55, exp: 25, spec: "Apple Vision Pro", company: "Apple"),
         (name: "Andreas Wendker", age: 52, exp: 28, spec: "Tools for Xcode, Swift", company: "Apple"),

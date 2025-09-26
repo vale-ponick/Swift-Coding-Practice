@@ -14,10 +14,6 @@ public struct Chapter7_Functions {
         task7_3()
         task7_4()
         task7_5()
-        // Functions: Advanced Level
-        task7a_1()
-        task7a_2()
-        task7a_3()
     } // Добавляй новые задачи тут
     
     static func task7_1() {
@@ -194,7 +190,7 @@ public struct Chapter7_Functions {
         
         func analyzePerformance(_ schoolchildren: [Schoolchild]) {
             let excellentChildren = schoolchildren.filter { $0.isExcellent() }
-            let averageGrade = schoolchildren.map { $0.grade }.reduce(0, +) / schoolchildren.count
+            _ = schoolchildren.map { $0.grade }.reduce(0, +) / schoolchildren.count
             
             print("=== АНАЛИЗ УСПЕВАЕМОСТИ ===")
             print("Отличники (\( excellentChildren.count) человек):")
@@ -221,37 +217,38 @@ public struct Chapter7_Functions {
         analyzePerformance(schoolchildren)
         print("Средний балл класса: \(String(format: "%.1f", averageGrade))")
     }
-/*  Ученик Иван, класс A, оценка 3
- Ученик Степан, класс B, оценка 3
- Ученик Костя, класс A, оценка 4
- Ученик Aндрей, класс С, оценка 3
- Ученик Федор, класс С, оценка 4
- Ученик Женя, класс B, оценка 5
- Ученик Кирилл, класс A, оценка 4
- Ученик Витя, класс С, оценка 5
- === АНАЛИЗ УСПЕВАЕМОСТИ ===
- Отличники (2 человек):
- ⭐️ Женя - 5 баллов
- ⭐️ Витя - 5 баллов
- Средний балл класса: 3.9   */
+    /*  Ученик Иван, класс A, оценка 3
+     Ученик Степан, класс B, оценка 3
+     Ученик Костя, класс A, оценка 4
+     Ученик Aндрей, класс С, оценка 3
+     Ученик Федор, класс С, оценка 4
+     Ученик Женя, класс B, оценка 5
+     Ученик Кирилл, класс A, оценка 4
+     Ученик Витя, класс С, оценка 5
+     === АНАЛИЗ УСПЕВАЕМОСТИ ===
+     Отличники (2 человек):
+     ⭐️ Женя - 5 баллов
+     ⭐️ Витя - 5 баллов
+     Средний балл класса: 3.9   */
     
     static func task7_3() {
         print("Задача 7.1: Создай функцию, которая принимает имя и фамилию, потом положить все это в массив и вывести результат в консоль.")
+        struct Human {
+            let name: String
+            let surname: String
+        }
+        
+        func add(name: String, surname: String) -> [String] { // входные параметры - две строки
+            return [name, surname]
+        }
+        let humanInfo = add(name: "Joe", surname: "Smith")
+        print(humanInfo)
+        
     }
     static func task7_4() {
         print("Задача 7.1: Создай функцию, которая принимает параметры и вычисляет площадь круга.")
     }
     static func task7_5() {
         print("Задача 7.1: Создай словарь с именами учеников, где ключ - name, а значение - (1 tuple из 5 имен) и (2 кортеж из 5 оценок). Распечатай только имена по ключу.")
-    }
-    // Functions: Advanced Level
-    static func task7a_1() {
-        print("Задача 7.1: Функция принимает 3 массива строк. Задача: сложить их вместе, преобразовать в тип Int и посчитать суму. Распечатай результат в консоль.")
-    }
-    static func task7a_2() {
-        print("Задача 7.1: Создай функцию, которая принимает строку-рассказ без пробелов и знаков препинания, все с маленькой буквы и на латинице.")
-    }
-    static func task7a_3() {
-        print("Задача 7.1: Напиши код, который добавляет знаки препинания в строку-рассказ, перености каждое новое предложение на н овую строку. Добавь заглавные буквы.")
     }
 }
