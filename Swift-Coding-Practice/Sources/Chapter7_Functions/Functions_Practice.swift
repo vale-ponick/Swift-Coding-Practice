@@ -243,8 +243,8 @@ public struct Chapter7_Functions {
         }
         let humanInfo = add(name: "Joe", surname: "Smith")
         print(humanInfo)
-        
     }
+    
     static func task7_4() {
         print("Задача 7.1: Создай функцию, которая принимает параметры и вычисляет площадь круга.")
     }
