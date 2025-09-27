@@ -17,6 +17,8 @@ public struct Chapter7_Functions {
         task7с_3()
         task7_4()
         task7_5()
+        task7a_5()
+        task7b_5()
     } // Добавляй новые задачи тут
     
     static func task7_1() {
@@ -390,35 +392,139 @@ public struct Chapter7_Functions {
         }
     } /* === Вариант 1: Массив массивов (Queen) ===
        🎸 Freddie Mercury
-          Instrument: vocals
-          Role: singer
-          Birth Year: 1946
-          Hit Song: Bohemian Rhapsody
+       Instrument: vocals
+       Role: singer
+       Birth Year: 1946
+       Hit Song: Bohemian Rhapsody
        ---
        🎸 Brian May
-          Instrument: guitar
-          Role: lead guitar
-          Birth Year: 1947
-          Hit Song: We Will Rock You
+       Instrument: guitar
+       Role: lead guitar
+       Birth Year: 1947
+       Hit Song: We Will Rock You
        ---
        🎸 John Deacon
-          Instrument: bass
-          Role: bassist
-          Birth Year: 1951
-          Hit Song: Another One Bites the Dust
+       Instrument: bass
+       Role: bassist
+       Birth Year: 1951
+       Hit Song: Another One Bites the Dust
        ---
        🎸 Roger Taylor
-          Instrument: drums
-          Role: drummer
-          Birth Year: 1949
-          Hit Song: Radio Ga Ga
+       Instrument: drums
+       Role: drummer
+       Birth Year: 1949
+       Hit Song: Radio Ga Ga
        --- */
     
     static func task7_4() {
         print("Задача 7.1: Создай функцию, которая принимает параметры и вычисляет площадь круга.")
+        func getAreaCircle(radius: Double) -> Double {
+            return Double.pi * radius * radius
+        }
+        print(getAreaCircle(radius: 4.5)) // 63.585
     }
     static func task7_5() {
-        print("Задача 7.1: Создай словарь с именами учеников, где ключ - name, а значение - (1 tuple из 5 имен) и (2 кортеж из 5 оценок). Распечатай только имена по ключу.")
+        print("Задача 7.1: Создай словарь с именами персонажей фильма 'Mackenna's Gold' 1968, где ключ - name и score, а значение - оценка - положительный 1/отрицательный персонаж - 0). Распечатай только имена по ключу.")
+        
+        // вар. 1 простой словарь
+        let movieChars = [
+            "Marshal Mackenna": 1,
+            "Ben Beyker": 0,
+            "Old Adams": 1,
+            "John Colorado": 0,
+            "Hesh-ke": 0,
+            "Sergeant Tibbs": 0
+        ]
+        print("Имена персонажей - \(movieChars.keys)") // Имена персонажей - ["Sergeant Tibbs", "Ben Beyker", "Hesh-ke", "Marshal Mackenna", "Old Adams", "John Colorado"]
+        
+        // вар. 2 словарь с кортежами
+        print("Задача 7.1: Создай словарь с именами персонажей фильма 'Mackenna's Gold' 1968, где ключ - name и score, а значение - (1 tuple из 5 имен) и (2 кортеж из 5 оценок - положительный 1/отрицательный персонаж - 0). Распечатай только имена по ключу.")
+        
+        struct CharacterKey: Hashable {
+            let name: String
+            let score: Int
+        }
+        
+        let characterNames = ("Sergeant Tibbs", "Ben Beyker", "Hesh-ke", "Marshal Mackenna", "Old Adams")
+        let characterScores = (0, 0, 1, 1, 0)
+        
+        let movieCharacters: [ CharacterKey : ((String, String, String, String, String), (Int, Int, Int, Int, Int)) ] = [
+            CharacterKey(name: "Sergeant Tibbs", score: 0): (characterNames, characterScores),
+            CharacterKey(name: "Ben Beyker", score: 0): (characterNames, characterScores),
+            CharacterKey(name: "Hesh-ke", score: 0): (characterNames, characterScores),
+            CharacterKey(name: "Marshal Mackenna", score: 1): (characterNames, characterScores),
+            CharacterKey(name: "Old Adams", score: 1): (characterNames, characterScores)
+        ]
+        
+        // Печать имён из ключей
+        for key in movieCharacters.keys {
+            print(key.name)
+        }
     }
+    /* Задача 7.1: Создай словарь с именами персонажей фильма 'Mackenna's Gold' 1968, где ключ - name и score, а значение - (1 tuple из 5 имен) и (2 кортеж из 5 оценок - положительный 1/отрицательный персонаж - 0). Распечатай только имена по ключу.
+     Ben Beyker
+     Old Adams
+     Hesh-ke
+     Sergeant Tibbs
+     Marshal Mackenna */
+    
+    static func task7a_5() {
+        print("🎯 Задача 1: Выведи имена актеров моложе 50 лет.")
+        
+        struct MovieActorKey: Hashable {
+            let name: String
+            let yearBirth: Int
+        }
+        
+        let movieChars: [MovieActorKey: ((String, String, String), (String, String, String))] = [
+            MovieActorKey(name: "Daniel Craig", yearBirth: 1968): (
+                ("Skyfall", "No Time to Die", "Casino Royale"),
+                ("BAFTA Nominee", "Critics Choice", "CMG Award")
+            ),
+            MovieActorKey(name: "Judi Dench", yearBirth: 1934): (
+                ("Skyfall", "James Bond", "Shakespeare in Love"),
+                ("Oscar", "Golden Globe", "BAFTA")
+            ),
+            MovieActorKey(name: "Benedict Cumberbatch", yearBirth: 1976): (
+                ("The Imitation Game", "Doctor Strange", "Sherlock"),
+                ("Emmy Award", "BAFTA", "Olivier Award")
+            ),
+            MovieActorKey(name: "Naomie Harris", yearBirth: 1976): (
+                ("Skyfall", "Moonlight", "Pirates of the Caribbean"),
+                ("Oscar Nominee", "Golden Globe Nominee", "BAFTA Nominee")
+            )
+        ]
+        
+        let currentYear = 2024
+        print("Актеры моложе 50 лет:")
+        for key in movieChars.keys {
+            let age = currentYear - key.yearBirth
+            if age < 50 {
+                print("• \(key.name) - \(age) лет")
+            }
+        }
+    }
+    /* 🎯 Задача 1: Выведи имена актеров моложе 50 лет.
+     Актеры моложе 50 лет:
+     • Benedict Cumberbatch - 48 лет
+     • Naomie Harris - 48 лет */
+    
+    static func task7b_5() {
+        print("Задача 2*: Создай словарь с фильмами, где ключ - (название, год), а значение - (актеры: (3 имени), рейтинг, сборы). Найди все фильмы с актером 'Benedict Cumberbatch'.")
+        
+        struct Movie {
+            let name: String
+            let dataRelease: Int
+        }
+        
+        let chars = ("Benedict Cumberbatch", "Ian Murray MacKellen", "Martin Freeman")
+        let rating = (8.9, 9.1, )
+        let movies = ("The Hobbit: Unexpected Journey", "X-Men", "Beaty and the Beast")
+        let fees = (1.017, 2.797, 1,263)
+        
+       
+    }
+    
+    
 }
 
