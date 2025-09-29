@@ -9,6 +9,7 @@ import Foundation
 public struct Chapter7_Functions {
     public static func runAllTasks() {
         print("=== Глава 7: Функции ===")
+        
         task7_1()
         task7_2()
         task7_3()
@@ -19,7 +20,7 @@ public struct Chapter7_Functions {
         task7_5()
         task7a_5()
         task7b_5()
-    } // Добавляй новые задачи тут
+    }
     
     static func task7_1() {
         print("Задача 7.1: Создай три функции: 1-ая функция принимает массив Int и сортирует его по порядку(возрастание). После - распечатывает в консоль. 2-ая функция принимает массив String, меняет 1, 2 и 3 элементы и сортирует по алфавиту. После - распечатывает в консоль. 3-я функция принимает два массива строк и складывает их. После - распечатывает в консоль.")
@@ -510,21 +511,21 @@ public struct Chapter7_Functions {
      • Naomie Harris - 48 лет */
     
     static func task7b_5() {
-        print("Задача 2*: Создай словарь с фильмами, где ключ - (название, год), а значение - (актеры: (3 имени), рейтинг, сборы). Найди все фильмы с актером 'Benedict Cumberbatch'.")
+        print("Задача 2*: Создай словарь с фильмами...")
         
-        struct Movie {
+        struct MovieKey: Hashable {
             let name: String
-            let dataRelease: Int
+            let year: Int
         }
         
-        let chars = ("Benedict Cumberbatch", "Ian Murray MacKellen", "Martin Freeman")
-        let rating = (8.9, 9.1, )
-        let movies = ("The Hobbit: Unexpected Journey", "X-Men", "Beaty and the Beast")
-        let fees = (1.017, 2.797, 1,263)
+        let moviesDict: [MovieKey: (actors: (String, String, String), rating: Double, fees: Double)] = [
+            MovieKey(name: "The Hobbit: Unexpected Journey", year: 2012): (("Benedict Cumberbatch", "Ian McKellen", "Martin Freeman"), 8.9, 1.017)
+        ]
         
-       
+        for (key, value) in moviesDict {
+            if [value.actors.0, value.actors.1, value.actors.2].contains("Benedict Cumberbatch") {
+                print("В фильме '\(key.name)' (\(key.year)) играет актер Benedict Cumberbatch.")
+            }
+        }
     }
-    
-    
 }
-
