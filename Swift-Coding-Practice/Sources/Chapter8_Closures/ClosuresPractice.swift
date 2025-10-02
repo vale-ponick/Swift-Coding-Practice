@@ -180,8 +180,85 @@ public struct Chapter8_Closures {
      5. По типу данных - для каждого типа свои особенности  */
 
     static func task8a_2() {
-        print("Зад...")
+        print("Задача 8a.2: Напиши 10 замыканий на примере сортировок массивов: Простая - по одному критерию.")
+        
+        let cities = ["london", "Paris", "rome", "Berlin", "vashington", "Mexico"]
+        let nums = [888, 9, 12, 21, 555, 33, 4, 77]
+        let names = ["Anna", "john", "Maria", "alex", "Zoe", "Brian"]
+        
+        // 1. Сортировка городов по длине строки (ваш пример)
+        let byLengthSorted = cities.sorted { $0.count < $1.count }
+        print("1. По длине: \(byLengthSorted)")
+        
+        // 2. Сортировка чисел по убыванию (ваш пример)
+        let numsDescending = nums.sorted { $0 > $1 }
+        print("2. Числа по убыванию: \(numsDescending)")
+        
+        // 3. Сортировка городов без учета регистра по возрастанию
+        let citiesAlphabetical = cities.sorted { $0.lowercased() < $1.lowercased() }
+        print("3. Города по алфавиту: \(citiesAlphabetical)")
+        
+        // 4. Сортировка по последнему символу
+        let byLastChar = cities.sorted {
+            let last1 = $0.last ?? Character("")
+            let last2 = $1.last ?? Character("")
+            return last1 < last2
+        }
+        print("4. По последнему символу: \(byLastChar)")
+        
+        // 5. Сортировка по количеству гласных букв
+        let byVowelCount = cities.sorted {
+            let vowels1 = $0.lowercased().filter { "aeiou".contains($0) }.count
+            let vowels2 = $1.lowercased().filter { "aeiou".contains($0) }.count
+            return vowels1 > vowels2
+        }
+        print("5. По кол-ву гласных: \(byVowelCount)")
+        
+        // 6. Сортировка по наличию определенной буквы
+        let byContainsE = cities.sorted {
+            let hasE1 = $0.lowercased().contains("e")
+            let hasE2 = $1.lowercased().contains("e")
+            return hasE1 && !hasE2 // Сначала те, что содержат 'e'
+        }
+        print("6. По наличию 'e': \(byContainsE)")
+        
+        // 7. Сортировка чисел по четности (сначала четные)
+        let byEvenFirst = nums.sorted {
+            let isEven1 = $0 % 2 == 0
+            let isEven2 = $1 % 2 == 0
+            return isEven1 && !isEven2
+        }
+        print("7. Четные первые: \(byEvenFirst)")
+        
+        // 8. Сортировка имен с учетом регистра (Z перед a)
+        let caseSensitive = names.sorted { $0 < $1 }
+        print("8. С учетом регистра: \(caseSensitive)")
+        
+        // 9. Сортировка по разнице между числом и 50
+        let byDistanceFrom50 = nums.sorted {
+            abs($0 - 50) < abs($1 - 50)
+        }
+        print("9. Ближайшие к 50: \(byDistanceFrom50)")
+        
+        // 10. Сортировка по возрастанию суммы цифр числа
+        let byDigitSum = nums.sorted {
+            let sum1 = String($0).compactMap { $0.wholeNumberValue }.reduce(0, +)
+            let sum2 = String($1).compactMap { $0.wholeNumberValue }.reduce(0, +)
+            return sum1 < sum2
+        }
+        print("10. По сумме цифр: \(byDigitSum)")
     }
+    /* Задача 8a.2: Напиши 10 замыканий на примере сортировок массивов: Простая - по одному критерию.
+     1. По длине: ["rome", "Paris", "london", "Berlin", "Mexico", "vashington"]
+     2. Числа по убыванию: [888, 555, 77, 33, 21, 12, 9, 4]
+     3. Города по алфавиту: ["Berlin", "london", "Mexico", "Paris", "rome", "vashington"]
+     4. По последнему символу: ["rome", "london", "Berlin", "vashington", "Mexico", "Paris"]
+     5. По кол-ву гласных: ["vashington", "Mexico", "london", "Paris", "rome", "Berlin"]
+     6. По наличию 'e': ["rome", "Berlin", "Mexico", "london", "Paris", "vashington"]
+     7. Четные первые: [888, 12, 4, 9, 21, 555, 33, 77]
+     8. С учетом регистра: ["Anna", "Brian", "Maria", "Zoe", "alex", "john"]
+     9. Ближайшие к 50: [33, 77, 21, 12, 9, 4, 555, 888]
+     10. По сумме цифр: [12, 21, 4, 33, 9, 77, 555, 888] */
     
     static func task8b_2() {
         print("Зад...")
