@@ -343,21 +343,100 @@ public struct Chapter8_Closures {
         
         // 3. Упрощенная сортировка по первому символу
         let byFirstCharacter = daysOfWeek.sorted { $0.first! > $1.first! }
+        print("\(byFirstCharacter)")
         // Или даже так (сравнение строк по первому символу):
-        // let byFirstChar = daysOfWeek.sorted { String($0.prefix(1)) > String($1.prefix(1)) }
+        let byFirstChars = daysOfWeek.sorted { String($0.prefix(1)) > String($1.prefix(1)) }
+        print("\(byFirstChars)")
 
         // 4. Упрощенная сортировка по последнему символу
         let byLastCharacter = daysOfWeek.sorted { $0.last! > $1.last! }
+        print("\(byLastCharacter)")
 
         // 6. Упрощенная сортировка по наличию буквы 'i'
         let byLetterI = daysOfWeek.sorted { $0.lowercased().contains("i") && !$1.lowercased().contains("i") }
+        print("\(byLetterI)")
 }
   
-    
-    
     static func task8c_2() {
-        print("Зад...")
-    }
+        print("Задача 8с.2 Напиши три замыкания на примере сортировки массива структур (сложные объекты.")
+        
+        struct User {
+            let name: String
+            let nick: String
+            let age: Int
+            let email: String
+        }
+        let users = [
+            User(name: "Ann", nick: "@nn", age: 15, email: "ann15@gmail.com"),
+            User(name: "Joe", nick: "J0e21", age: 21, email: "joe21@gmail.com"),
+            User(name: "Sam", nick: "$@m27", age: 27, email: "sam27@gmail.com"),
+            User(name: "Kate", nick: "k@t3", age: 19, email: "kate19@gmail.com"),
+            User(name: "Mike", nick: "m1k3", age: 25, email: "mike25@gmail.com")
+        ]
+        
+        let byName = users.sorted { $0.name < $1.name }
+        print("1. По имени (A - Z): ")
+        byName.forEach { print(" - \($0.name), \($0.age), \($0.nick), \($0.email)") }
+        /* 1. По имени (A - Z):
+         - Ann, 15, @nn, ann15@gmail.com
+         - Joe, 21, J0e21, joe21@gmail.com
+         - Kate, 19, k@t3, kate19@gmail.com
+         - Mike, 25, m1k3, mike25@gmail.com
+         - Sam, 27, $@m27, sam27@gmail.com */
+        
+        let byAgeDescending = users.sorted { $0.age > $1.age }
+        print("2. По возрасту(убывание) ")
+        byAgeDescending.forEach { print(" \($0.name), \($0.age)") }
+        /* 2. По возрасту(убывание)
+                Sam, 27
+                Mike, 25
+                Joe, 21
+                Kate, 19
+                Ann, 15 */
+        
+        let byNickLength = users.sorted { $0.nick.count > $1.nick.count }
+        print("n3. По длине никнейма ")
+        byNickLength.forEach { print(" - \($0.nick), \($0.name), \($0.nick.count)") }
+        /* 3. По длине никнейма
+                - J0e21, Joe, 5
+                - $@m27, Sam, 5
+                - k@t3, Kate, 4
+                - m1k3, Mike, 4
+                - @nn, Ann, 3 */
+        
+        let bySpecialCharsInNick = users.sorted { user1, user2 in
+            let specialChars = CharacterSet(charactersIn: "@$#!&*")
+            let count1 = user1.nick.unicodeScalars.filter { specialChars.contains($0) }.count
+            let count2 = user2.nick.unicodeScalars.filter { specialChars.contains($0) }.count
+            return count1 < count2
+        }
+        print("\n4. По количеству специальных символов в нике:")
+         bySpecialCharsInNick.forEach { print("   - \($0.nick) (\($0.name))") }
+        /* 4. По количеству специальных символов в нике:
+                - J0e21 (Joe)
+                - m1k3 (Mike)
+                - @nn (Ann)
+                - k@t3 (Kate)
+                - $@m27 (Sam)*/
+        
+        // 5. Комбинированная сортировка: сначала по возрасту, затем по имени
+            let byAgeThenName = users.sorted {
+                if $0.age != $1.age {
+                    return $0.age < $1.age
+                } else {
+                    return $0.name < $1.name
+                }
+            }
+            print("\n5. Комбинированная: по возрасту, затем по имени:")
+            byAgeThenName.forEach { print("   - \($0.name), возраст: \($0.age)") }
+        /* 5. Комбинированная: по возрасту, затем по имени:
+         - Ann, возраст: 15
+         - Kate, возраст: 19
+         - Joe, возраст: 21
+         - Mike, возраст: 25
+         - Sam, возраст: 27 */
+        }
+    
     
     static func task8_3() {
         print("Задача 8.3: Напиши функцию, которая принимает массив, проверяет - пустой или нет. И если пустой - нужно написать туда значение.")
