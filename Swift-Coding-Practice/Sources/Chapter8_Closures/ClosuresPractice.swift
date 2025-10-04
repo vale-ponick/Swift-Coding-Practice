@@ -440,14 +440,97 @@ public struct Chapter8_Closures {
     
     static func task8_3() {
         print("Задача 8.3: Напиши функцию, которая принимает массив, проверяет - пустой или нет. И если пустой - нужно написать туда значение.")
+        
+        // var. 1 С inout (изменяет исходный массив)
+        func check(text: inout [String]) {
+            
+            if text.isEmpty {
+                text.append("Hi")
+            }
+        }
+        
+        // var. 2
+        func change(text: [String]) -> [String] {
+            var result = text
+            if result.isEmpty {
+                result.append("Hi, Vale!")
+            }
+            return result
+        }
+        // Тестирование
+         var testArray: [String] = []
+         check(text: &testArray)
+         print(testArray) // ["Hi"]
+         
+         print(change(text: [])) // ["Hi, Vale!"]
+        
+        // вар. 3 коротко + тернарный оператор
+        
+        func check(text: [String]) -> [String] {
+            text.isEmpty ? ["Hi"] : text
+        }
+        
+        // вар. 4 используя nil-coalescing
+        
+        func check(text1: [String]) -> [String] {
+            text1.isEmpty ? ["Hi"] : text1
+        }
     }
     
     static func task8_4() {
         print("Задача 8.4: Напиши функцию - сайт, который требует имя, фамилию, ник, емейл, пароль. Все выведи в консоль.")
+        
+        struct User {
+            let name: String
+            let surname: String
+            let nick: String
+            let email: String
+            let password: String
+        }
+            
+            let users = [
+                User(name: "Sammium", surname: "Scromby", nick: "Sam", email: "$am@gmail.com", password: "hobbit"),
+                User(name: "Merriadok", surname: "Brendyzike", nick: "Merry", email: "m@rry@gmail.com", password: "shire"),
+                User(name: "Peregrin", surname: "Took", nick: "Pin", email: "p!n@gmail.com", password: "greenDragon")
+            ]
+        func site(users:[User]) {
+            for user in users {
+                print("Имя: \(user.name), Фамилия: \(user.surname), Никнейм: \(user.nick), Почта: \(user.email), Пароль: \(user.password)")
+            }
+        }
+        site(users: users)
+        /* Имя: Sammium, Фамилия: Scromby, Никнейм: Sam, Почта: $am@gmail.com, Пароль: hobbit
+         Имя: Merriadok, Фамилия: Brendyzike, Никнейм: Merry, Почта: m@rry@gmail.com, Пароль: shire
+         Имя: Peregrin, Фамилия: Took, Никнейм: Pin, Почта: p!n@gmail.com, Пароль: greenDragon */
     }
     
     static func task8_5() {
         print("Задача 8.5: Напиши функции, которые принимают в качестве аргументов массивы и словари и проверяют: пустые или нет. Если пустые - добавляют туда значения и выводят в консоль.")
+        
+        // var. 1 коротко + тернарный оператор
+        func check(nums: [Int]) -> [Int] {
+            nums.isEmpty ? [12,21] : nums
+        }
+        print(check(nums: [])) // [12, 21]
+        
+        func check(name: [String: Int]) -> [String: Int] {
+            name.isEmpty ? ["Joe": 21] : name
+        }
+        print(check(name: [:])) // ["Joe": 21]
+        
+        // var.2 используя nil-coalescing
+        func check(seasons: [String]?) -> [String] {
+            seasons ?? ["Winter"]
+        }
+        print(check(seasons: [])) // []
+        print(check(seasons: nil)) // ["Winter"]
+              
+        func check(daysOfWeek: [String: Int]?) -> [String: Int] {
+            daysOfWeek ?? ["Sunday": 1]
+        }
+        print(check(daysOfWeek: [:])) // [:]
+        print(check(daysOfWeek: nil )) // ["Sunday": 1]
+        
     }
 }
 
