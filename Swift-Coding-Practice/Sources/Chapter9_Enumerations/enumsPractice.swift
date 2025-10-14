@@ -269,6 +269,10 @@ static func task9_2a() {
          Статус: Задача отменена
          Можно редактировать: false
          Следующие возможные статусы: нет   */
+        // ДОБАВЬ ЭТОТ КОД В КОНЕЦ ФУНКЦИИ (в main ветке):
+        func canReopenTask(status: TaskStatus) -> Bool {
+            return status == .cancelled
+        }
     }
         
     static func task9_2e() {
