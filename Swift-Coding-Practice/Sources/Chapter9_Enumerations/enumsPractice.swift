@@ -273,6 +273,10 @@ static func task9_2a() {
         func canReopenTask(status: TaskStatus) -> Bool {
             return status == .cancelled
         }
+        
+        
+        
+        
     }
         
     static func task9_2e() {
