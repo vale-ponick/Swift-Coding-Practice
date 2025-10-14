@@ -132,7 +132,6 @@ static func task9_2a() {
                 return "Заказ доставлен"
             case .cancelled:
                 return "Заказ отменен"
-                
             }
         }
         
@@ -193,12 +192,85 @@ static func task9_2a() {
                 ➡️ Следующий: Заказ доставлен
 
             📦 Заказ доставлен
-                Отмена: ❌*/
+                Отмена: ❌   */
     }
     
     static func task9_2d() {
-        print("Задача 9.2.d:")
+        print("Задача 9.2d.d: Создай enum для статусов задачи 'To-DO' и функции для работы с ними.")
+        
+        enum TaskStatus {
+            case new
+            case inProgress
+            case paused
+            case completed
+            case cancelled
+        }
+        
+        func getTaskDescription(status: TaskStatus) -> String {
+            switch status { // для каждого case возвращаем описание
+            case .new: return "Новая задача"
+            case .inProgress: return "Задача в работе"
+            case .paused: return "Задача на паузе"
+            case .completed: return "Задача завершена"
+            case .cancelled: return "Задача отменена"
+            }
+        }
+        // 1. Добавляем функции с логикой
+        func canEditTask(status: TaskStatus) -> Bool {
+            switch status {
+            case .new, .inProgress, .paused: return true
+            case .completed, .cancelled: return false
+            }
+        }
+        
+        func getNextPossibleStatus(current: TaskStatus) -> [TaskStatus] {
+            switch current {
+            case .new: return [.inProgress, .cancelled]
+            case .inProgress: return [.cancelled, .completed, .paused]
+            case .paused: return [.inProgress, .cancelled]
+            case .completed: return []
+            case .cancelled: return []
+            }
+        }
+        //  Протестировать ВСЕ статусы
+        let allStatuses: [TaskStatus] = [.new, .inProgress, .paused, .completed, .cancelled]
+        
+        for status in allStatuses {
+            print("Статус: \(getTaskDescription(status: status))")
+            print("Можно редактировать: \(canEditTask(status: status))")
+            
+            // ПЕРЕНЕСИ ЭТОТ КОД СЮДА, ВНУТРЬ ЦИКЛА:
+            let nextStatuses = getNextPossibleStatus(current: status)
+            if nextStatuses.isEmpty {
+                print("Следующие возможные статусы: нет")
+            } else {
+                let statusNames = nextStatuses.map { getTaskDescription(status: $0) }
+                print("Следующие возможные статусы: \(statusNames.joined(separator: ", "))")
+            }
+            print("---")
+        }
+        /*  Задача 9.2d.d: Создай enum для статусов задачи 'To-DO' и функции для работы с ними.
+         Статус: Новая задача
+         Можно редактировать: true
+         Следующие возможные статусы: Задача в работе, Задача отменена
+         ---
+         Статус: Задача в работе
+         Можно редактировать: true
+         Следующие возможные статусы: Задача отменена, Задача завершена, Задача на паузе
+         ---
+         Статус: Задача на паузе
+         Можно редактировать: true
+         Следующие возможные статусы: Задача в работе, Задача отменена
+         ---
+         Статус: Задача завершена
+         Можно редактировать: false
+         Следующие возможные статусы: нет
+         ---
+         Статус: Задача отменена
+         Можно редактировать: false
+         Следующие возможные статусы: нет   */
     }
+        
     static func task9_2e() {
         print("Задача 9.2.e:")
     }
