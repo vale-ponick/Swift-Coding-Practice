@@ -298,3 +298,4 @@ static func task9_2a() {
         print("Задача 9.4: ")
     }
 }
+// CONFLICT TEST FROM MAIN
