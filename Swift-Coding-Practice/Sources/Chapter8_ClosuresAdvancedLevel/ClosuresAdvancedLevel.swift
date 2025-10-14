@@ -205,3 +205,4 @@ public struct Chapter8_ClosuresAdvancedLevel {  // ← измени здесь �
     Память: 256GB
     Цвет: Black */
 
+// CONFLICT FROM FEATURE
