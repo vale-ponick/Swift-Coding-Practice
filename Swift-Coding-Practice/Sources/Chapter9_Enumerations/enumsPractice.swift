@@ -269,6 +269,17 @@ static func task9_2a() {
          Статус: Задача отменена
          Можно редактировать: false
          Следующие возможные статусы: нет   */
+        
+        // ДОБАВЬ ЭТОТ КОД В КОНЕЦ ФУНКЦИИ:
+        func getStatusPriority(status: TaskStatus) -> Int {
+            switch status {
+            case .new: return 1
+            case .inProgress: return 2
+            case .paused: return 3
+            case .completed: return 4
+            case .cancelled: return 5
+            }
+        }
     }
         
     static func task9_2e() {
