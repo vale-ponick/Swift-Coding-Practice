@@ -32,7 +32,7 @@ public struct Chapter9_Enumerations {
     }
     
 static func task9_2a() {
-    print("Задача 9.2.a: Создай enum для дней недели и функцию, которая определяет, является ли день выходным?")
+    print("Задача 9.2a: Создай enum для дней недели и функцию, которая определяет, является ли день выходным?")
 
     enum Weekday {
         case monday
@@ -67,7 +67,7 @@ static func task9_2a() {
 }
     
     static func task9_2b() {
-        print("Задача 9.2.b: Создай enum для основных цветов и функцию, которая возвращает HEX-код для каждого цвета")
+        print("Задача 9.2b: Создай enum для основных цветов и функцию, которая возвращает HEX-код для каждого цвета")
         enum Color {
             case red
             case green
@@ -110,7 +110,90 @@ static func task9_2a() {
        🔵 blue - HEX: #0000FF   */
     
     static func task9_2c() {
-        print("Задача 9.2.c:")
+        print("Задача 9.2c: Создай enum для статусов заказа и функцию, которая возвращает описание для каждого статуса")
+        
+        enum OrderStatus {
+            case created
+            case paid
+            case shipped
+            case delivered
+            case cancelled
+        }
+        
+        func getStatusDescription(status: OrderStatus) -> String {
+            switch status { // для каждого case возвращаем описание
+            case .created:
+                return "Заказ создан"
+            case .paid:
+                return "Заказ оплачен"
+            case .shipped:
+                return "Заказ отправлен"
+            case .delivered:
+                return "Заказ доставлен"
+            case .cancelled:
+                return "Заказ отменен"
+                
+            }
+        }
+        
+        // 1. Добавляем функции с логикой
+        func canCancelOrder(status: OrderStatus) -> Bool {
+            switch status {
+            case .created, .paid: return true
+            case .shipped, .delivered, .cancelled: return false
+            }
+        }
+        
+        func getNextStatus(current: OrderStatus) -> OrderStatus? {
+            switch current {
+            case .created: return .paid
+            case .paid: return .shipped
+            case .shipped: return .delivered
+            default: return nil
+            }
+        }
+        // 2. Тестируем ВСЕ статусы с новой логикой
+        
+        // протестируем все статусы
+        let allStatuses: [OrderStatus] = [.created, .paid, .shipped, .delivered]
+        
+        // Более красивый вывод статусов
+        func getStatusEmoji(status: OrderStatus) -> String {
+            switch status {
+            case .created: return "📝"
+            case .paid: return "💳"
+            case .shipped: return "🚚"
+            case .delivered: return "📦"
+            case .cancelled: return "❌"
+            }
+        }
+
+        for status in allStatuses {
+            let emoji = getStatusEmoji(status: status)
+            let cancelIcon = canCancelOrder(status: status) ? "✅" : "❌"
+            
+            print("\(emoji) \(getStatusDescription(status: status))")
+            print("   Отмена: \(cancelIcon)")
+            
+            if let next = getNextStatus(current: status) {
+                print("   ➡️ Следующий: \(getStatusDescription(status: next))")
+            }
+            print()
+        }
+        /*  📝 Заказ создан
+                Отмена: ✅
+                ➡️ Следующий: Заказ оплачен
+
+            💳 Заказ оплачен
+                Отмена: ✅
+                ➡️ Следующий: Заказ отправлен
+
+            🚚 Заказ отправлен
+                Отмена: ❌
+                ➡️ Следующий: Заказ доставлен
+
+            📦 Заказ доставлен
+                Отмена: ❌*/
     }
     
     static func task9_2d() {
