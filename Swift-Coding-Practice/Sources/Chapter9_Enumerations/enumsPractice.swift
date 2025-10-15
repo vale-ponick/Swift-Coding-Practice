@@ -436,15 +436,15 @@ public struct Chapter9_Enumerations {
         print("✅ Премиум: Сериал + Скачать: \(canAccess(subscription: .premium, content: .series, action: .download))")
         print("✅ Pro: Эксклюзив + Ранний доступ: \(canAccess(subscription: .pro, content: .exclusive, action: .earlyAccess))")
         print("✅ Pro: Фильм + Скачать: \(canAccess(subscription: .pro, content: .movie, action: .download))")
-}
-  /* 🧪 ТЕСТЫ СИСТЕМЫ ДОСТУПА:
-        ❌ Бесплатный: Эксклюзив + Ранний доступ: false
-        ✅ Бесплатный: Фильм + Смотреть: true
-        ❌ Бесплатный: Фильм + Скачать: false
-        ❌ Премиум: Эксклюзив + Скачать: false
-        ✅ Премиум: Сериал + Скачать: true
-        ✅ Pro: Эксклюзив + Ранний доступ: true
-        ✅ Pro: Фильм + Скачать: true  */
+    }
+    /* 🧪 ТЕСТЫ СИСТЕМЫ ДОСТУПА:
+     ❌ Бесплатный: Эксклюзив + Ранний доступ: false
+     ✅ Бесплатный: Фильм + Смотреть: true
+     ❌ Бесплатный: Фильм + Скачать: false
+     ❌ Премиум: Эксклюзив + Скачать: false
+     ✅ Премиум: Сериал + Скачать: true
+     ✅ Pro: Эксклюзив + Ранний доступ: true
+     ✅ Pro: Фильм + Скачать: true  */
     
     static func task9_2g() {
         print("Задача 9.2.g: Задача 2: Образовательная платформа. Определить права для разных типов аккаунтов")
@@ -475,8 +475,8 @@ public struct Chapter9_Enumerations {
             switch plan {
             case .trial:
                 switch material {
-                    case .lesson: return operation == .view
-                    case .quiz, .exam, .certificate: return false // остальные материалы недоступны
+                case .lesson: return operation == .view
+                case .quiz, .exam, .certificate: return false // остальные материалы недоступны
                 }
             case .student:
                 switch material {
@@ -491,16 +491,16 @@ public struct Chapter9_Enumerations {
                 }
             case .school:
                 return true
-                }
             }
+        }
         // Тесты
-            print("🧪 ТЕСТЫ ОБРАЗОВАТЕЛЬНОЙ ПЛАТФОРМЫ:")
-            print("❌ Пробный: Урок + Создать: \(canPerform(plan: .trial, material: .lesson, operation: .create))")
-            print("✅ Пробный: Урок + Просмотр: \(canPerform(plan: .trial, material: .lesson, operation: .view))")
-            print("✅ Студент: Тест + Прохождение: \(canPerform(plan: .student, material: .quiz, operation: .attempt))")
-            print("❌ Студент: Экзамен + Оценить: \(canPerform(plan: .student, material: .exam, operation: .grade))")
-            print("✅ Учитель: Урок + Создать: \(canPerform(plan: .teacher, material: .lesson, operation: .create))")
-            print("✅ Школа: Сертификат + Оценить: \(canPerform(plan: .school, material: .certificate, operation: .grade))")
+        print("🧪 ТЕСТЫ ОБРАЗОВАТЕЛЬНОЙ ПЛАТФОРМЫ:")
+        print("❌ Пробный: Урок + Создать: \(canPerform(plan: .trial, material: .lesson, operation: .create))")
+        print("✅ Пробный: Урок + Просмотр: \(canPerform(plan: .trial, material: .lesson, operation: .view))")
+        print("✅ Студент: Тест + Прохождение: \(canPerform(plan: .student, material: .quiz, operation: .attempt))")
+        print("❌ Студент: Экзамен + Оценить: \(canPerform(plan: .student, material: .exam, operation: .grade))")
+        print("✅ Учитель: Урок + Создать: \(canPerform(plan: .teacher, material: .lesson, operation: .create))")
+        print("✅ Школа: Сертификат + Оценить: \(canPerform(plan: .school, material: .certificate, operation: .grade))")
         
     } /* 🧪 ТЕСТЫ ОБРАЗОВАТЕЛЬНОЙ ПЛАТФОРМЫ:
        ❌ Пробный: Урок + Создать: false
@@ -563,23 +563,66 @@ public struct Chapter9_Enumerations {
     
     
     static func task9_2i() {
-        print("Задача 9.4: Интернет-магазин. Разграничить права пользователей в магазине")
+        print("Задача 9.2i: Интернет-магазин. Разграничить права пользователей в магазине")
         
-        enum UserType { case guest, buyer, seller, manager }
-        enum Section { case catalog, cart, orders, analytics }
-        enum Access { case view, add, modify, delete }
+        enum UserType {
+            case guest, buyer, seller, manager
+        }
+        enum Section {
+            case catalog, cart, orders, analytics
+        }
+        enum Access {
+            case view, add, modify, delete
+        }
         
         // Реализуй:
         func hasAccess(user: UserType, section: Section, access: Access) -> Bool {
+            switch user {
+            case .guest:
+                switch section {
+                case .catalog: return access == .view
+                case .cart, .orders, .analytics: return false
+                }
+            case .buyer:
+                switch section {
+                case .catalog, .cart, .orders: return access == .view || access == .add
+                case .analytics: return false
+                }
+            case .seller:
+                switch section {
+                case .catalog: return access == .view || access == .modify || access == .add
+                case .orders:
+                    return access == .view || access == .modify
+                case .analytics: return access == .view
+                case .cart:
+                    return false
             
-            // Правила:
-            // GUEST:  catalog → view
-            // BUYER:  catalog/cart/orders → view/add (в cart); orders → view
-            // SELLER: catalog/orders → view/add/modify; analytics → view
-            // MANAGER: все sections → все access")
-            return true
+                }
+            case .manager:
+                return true
+            }
         }
-    }
+
+    // Тесты
+       print("🧪 ТЕСТЫ Интернет-магазина:")
+       print("👤 Гость + Каталог + Просмотр: \(hasAccess(user: .guest, section: .catalog, access: .view))")
+       print("👤 Гость + Корзина + Добавить: \(hasAccess(user: .guest, section: .cart, access: .add))")
+       print("🛒 Покупатель + Корзина + Добавить: \(hasAccess(user: .buyer, section: .cart, access: .add))")
+       print("🛒 Покупатель + Аналитика + Просмотр: \(hasAccess(user: .buyer, section: .analytics, access: .view))")
+       print("🏪 Продавец + Каталог + Изменить: \(hasAccess(user: .seller, section: .catalog, access: .modify))")
+       print("🏪 Продавец + Заказы + Удалить: \(hasAccess(user: .seller, section: .orders, access: .delete))")
+       print("👑 Менеджер + Аналитика + Удалить: \(hasAccess(user: .manager, section: .analytics, access: .delete))")
+   }
+    /* Задача 9.2i: Интернет-магазин. Разграничить права пользователей в магазине
+     🧪 ТЕСТЫ Интернет-магазина:
+     👤 Гость + Каталог + Просмотр: true
+     👤 Гость + Корзина + Добавить: false
+     🛒 Покупатель + Корзина + Добавить: true
+     🛒 Покупатель + Аналитика + Просмотр: false
+     🏪 Продавец + Каталог + Изменить: true
+     🏪 Продавец + Заказы + Удалить: false
+     👑 Менеджер + Аналитика + Удалить: true */
+    
     static func task9_2j() {
         print("Задача 9.5: Электронная библиотека. Ограничить доступ к книгам по возрасту и статусу")
         
