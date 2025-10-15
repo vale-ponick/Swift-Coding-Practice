@@ -23,6 +23,7 @@ public struct Chapter9_Enumerations {
         task9_2h()
         task9_2i()
         task9_2g()
+        task9_2h()
         task9_3()
         task9_4()
     }
@@ -510,23 +511,56 @@ public struct Chapter9_Enumerations {
        ✅ Школа: Сертификат + Оценить: true */
     
     static func task9_2h() {
-        print("Задача 9.3: Задача 3: Фитнес-приложение. Настроить доступ к функциям по типам членства")
+        print("Задача 9.2h: Фитнес-приложение. Настроить доступ к функциям по типам членства")
         
-        enum Membership { case basic, plus, coach, admin }
-        enum Workout { case basic, premium, custom, nutrition }
-        enum Activity { case view, start, customize, share }
+        enum MembershipTier { // уровень членства
+            case basic, plus, coach, admin
+        }
+        enum WorkoutPlan { // план тренировки
+            case standard, premium, custom, withNutrition
+        }
+        enum UserActivity {
+            case view, start, customize, share
+        }
         
         // Реализуй:
-        func canDo(membership: Membership, workout: Workout, activity: Activity) -> Bool {
-            
-            // Правила:
-            // BASIC:  basic workouts → view
-            // PLUS:   basic/premium → view/start
-            // COACH:  basic/premium/custom → view/start/customize/share
-            // ADMIN:  все workouts → все activities")
-            return true
+        func canDo(membershipTier: MembershipTier, workoutPlan: WorkoutPlan, userActivity: UserActivity) -> Bool {
+            switch membershipTier {
+            case .basic:
+                switch workoutPlan {
+                case .standard: return userActivity == .view
+                case .premium, .custom, .withNutrition: return false // недоступны
+                }
+            case .plus:
+                switch workoutPlan {
+                case .standard, .premium: return userActivity == .view || userActivity == .start
+                case .custom, .withNutrition:
+                    return false
+                }
+            case .coach:
+                switch workoutPlan {
+                case .standard, .premium, .custom, .withNutrition:
+                    return true // coach доступны все действия для всех планов
+                }
+            case .admin:
+                return true
+            }
         }
+        // Тесты
+        print("🧪 ТЕСТЫ Фитнес-приложения. Настроить доступ к функциям по типам членства:")
+        print("Уровень - начальный: \(canDo(membershipTier: .basic, workoutPlan: .standard, userActivity: .view))")
+        print("Уровень - плюс: \(canDo(membershipTier: .plus, workoutPlan: .premium, userActivity: .start))")
+        print("Уровень - тренер: \(canDo(membershipTier: .coach, workoutPlan: .premium, userActivity: .customize))")
+        print("Уровень - админ: \(canDo(membershipTier: .admin, workoutPlan: .withNutrition, userActivity: .share))")
+        print("❌ Basic + Premium + Start: \(canDo(membershipTier: .basic, workoutPlan: .premium, userActivity: .start))")
     }
+    /* 🧪 ТЕСТЫ Фитнес-приложения. Настроить доступ к функциям по типам членства:
+     Уровень - начальный: true
+     Уровень - плюс: true
+     Уровень - тренер: true
+     Уровень - админ: true
+     ❌ Basic + Premium + Start: false */
+    
     
     static func task9_2i() {
         print("Задача 9.4: Интернет-магазин. Разграничить права пользователей в магазине")
