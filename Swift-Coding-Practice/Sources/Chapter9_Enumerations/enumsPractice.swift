@@ -24,6 +24,7 @@ public struct Chapter9_Enumerations {
         task9_2i()
         task9_2g()
         task9_2h()
+        task9_2j()
         task9_3()
         task9_4()
     }
@@ -624,24 +625,48 @@ public struct Chapter9_Enumerations {
      👑 Менеджер + Аналитика + Удалить: true */
     
     static func task9_2j() {
-        print("Задача 9.5: Электронная библиотека. Ограничить доступ к книгам по возрасту и статусу")
+        print("Задача 9.2j: Электронная библиотека. Ограничить доступ к книгам по возрасту и статусу")
         
         
-        enum ReaderLevel { case child, teen, adult, scholar }
-        enum BookType { case children, fiction, academic, restricted }
-        enum Reading { case preview, borrow, download, annotate }
-        
-        // Реализуй:
-        func canRead(level: ReaderLevel, book: BookType, reading: Reading) -> Bool {
-            
-            // Правила:
-            // CHILD:   children → preview/borrow
-            // TEEN:    children/fiction → preview/borrow/download
-            // ADULT:   children/fiction/academic → все чтения
-            // SCHOLAR: все book types → все reading types
-            return true
+        enum ReaderLevel {
+            case child, teen, adult, scholar
         }
+        enum BookType {
+            case children, fiction, academic, restricted
+        }
+        enum Reading {
+            case preview, borrow, download, annotate
+        }
+        
+        func canRead(level: ReaderLevel, book: BookType, reading: Reading) -> Bool {
+            switch level {
+            case .child:
+                return book == .children && (reading == .preview || reading == .borrow)
+            case .teen:
+                return book != .academic && book != .restricted && reading != .annotate
+            case .adult:
+                return book != .restricted && reading != .annotate
+            case .scholar:
+                return true
+            }
+        }
+        print("📚 ТЕСТЫ БИБЛИОТЕКИ:")
+        print("▫️👤 → 🎈 Детские: \(canRead(level: .child, book: .children, reading: .preview))")
+        print("▫️👤 → 📖 Художеств: \(canRead(level: .child, book: .fiction, reading: .download))")
+        print("▫️👥 → 🎓 Академия: \(canRead(level: .teen, book: .academic, reading: .annotate))")
+        print("▫️👥 → 📚 Художеств: \(canRead(level: .teen, book: .fiction, reading: .borrow))")
+        print("▪️🧍 → 🔞 Огранич: \(canRead(level: .adult, book: .restricted, reading: .annotate))")
+        print("▪️🧍 → 💾 Скачать: \(canRead(level: .adult, book: .fiction, reading: .download))")
+        print("▪️👤🎓 → 🔓 Все: \(canRead(level: .scholar, book: .restricted, reading: .annotate))")
     }
+    /* 📚 ТЕСТЫ БИБЛИОТЕКИ:
+     ▫️👤 → 🎈 Детские: true
+     ▫️👤 → 📖 Художеств: false
+     ▫️👥 → 🎓 Академия: false
+     ▫️👥 → 📚 Художеств: true
+     ▪️🧍 → 🔞 Огранич: false
+     ▪️🧍 → 💾 Скачать: true
+     ▪️👤🎓 → 🔓 Все: true */
     
     static func task9_3() {
         print("Задача 9.3: ..")
