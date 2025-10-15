@@ -347,6 +347,7 @@ public struct Chapter9_Enumerations {
         /// ТЕСТИРОВАНИЕ с выводом в консоль
         print("\n🧪 ТЕСТЫ СИСТЕМЫ ПРАВ ДОСТУПА:")
         
+        
         // Тест 1: Должно вернуть true
         let test1 = canAccess(role: .user, resource: .profile, permission: .edit)
         print("✅ Юзер может редактировать профиль: \(test1)")
@@ -390,36 +391,123 @@ public struct Chapter9_Enumerations {
     static func task9_2f() {
         print("Задача 9.2.f: Задача 1: Стриминг платформа. Реализовать систему доступа к контенту по подписке")
         
+        enum Subscription { // подписка
+            case free // нет подписки
+            case premium // премиум
+            case pro // продвинутая
+        }
         
-        enum Subscription { case free, premium, pro }
-        enum Content { case movie, series, exclusive }
-        enum Action { case watch, download, earlyAccess }
+        enum Content { // контент
+            case movie // фильмыб видео
+            case series // сериалы
+            case exclusive // эксклюзив
+        }
+        
+        enum Action {
+            case watch // смотреть
+            case download // скачать
+            case earlyAccess // ранний доступ
+        }
         
         // Реализуй функцию:
-        func canAccess(subscription: Subscription, content: Content, action: Action) -> Bool
-        
-        // Правила:
-        // FREE:    movies/series → watch
-        // PREMIUM: movies/series → watch/download; exclusive → watch
-        // PRO:     всё контенты → все действия")
-    }
+        func canAccess(subscription: Subscription, content: Content, action: Action) -> Bool {
+            switch subscription {
+            case .free:
+                switch content {
+                case .movie, .series: return action == .watch
+                case .exclusive:
+                    return false
+                }
+            case .premium:
+                switch content {
+                case .movie, .series: return action == .watch || action == .download
+                case .exclusive: return action == .watch
+                }
+            case .pro:
+                return true
+            }
+        }
+        print("🧪 ТЕСТЫ СИСТЕМЫ ДОСТУПА:")
+        print("❌ Бесплатный: Эксклюзив + Ранний доступ: \(canAccess(subscription: .free, content: .exclusive, action: .earlyAccess))")
+        print("✅ Бесплатный: Фильм + Смотреть: \(canAccess(subscription: .free, content: .movie, action: .watch))")
+        print("❌ Бесплатный: Фильм + Скачать: \(canAccess(subscription: .free, content: .movie, action: .download))")
+        print("❌ Премиум: Эксклюзив + Скачать: \(canAccess(subscription: .premium, content: .exclusive, action: .download))")
+        print("✅ Премиум: Сериал + Скачать: \(canAccess(subscription: .premium, content: .series, action: .download))")
+        print("✅ Pro: Эксклюзив + Ранний доступ: \(canAccess(subscription: .pro, content: .exclusive, action: .earlyAccess))")
+        print("✅ Pro: Фильм + Скачать: \(canAccess(subscription: .pro, content: .movie, action: .download))")
+}
+  /* 🧪 ТЕСТЫ СИСТЕМЫ ДОСТУПА:
+        ❌ Бесплатный: Эксклюзив + Ранний доступ: false
+        ✅ Бесплатный: Фильм + Смотреть: true
+        ❌ Бесплатный: Фильм + Скачать: false
+        ❌ Премиум: Эксклюзив + Скачать: false
+        ✅ Премиум: Сериал + Скачать: true
+        ✅ Pro: Эксклюзив + Ранний доступ: true
+        ✅ Pro: Фильм + Скачать: true  */
     
     static func task9_2g() {
         print("Задача 9.2.g: Задача 2: Образовательная платформа. Определить права для разных типов аккаунтов")
         
-        enum Plan { case trial, student, teacher, school }
-        enum Material { case lesson, quiz, exam, certificate }
-        enum Operation { case view, attempt, create, grade }
+        enum Plan {
+            case trial // пробный аккаунт
+            case student
+            case teacher
+            case school
+        }
+        
+        enum Material {
+            case lesson
+            case quiz
+            case exam
+            case certificate
+        }
+        enum Operation {
+            case view
+            case attempt
+            case create
+            case grade
+        }
+        
         
         // Реализуй:
-        func canPerform(plan: Plan, material: Material, operation: Operation) -> Bool
+        func canPerform(plan: Plan, material: Material, operation: Operation) -> Bool {
+            switch plan {
+            case .trial:
+                switch material {
+                    case .lesson: return operation == .view
+                    case .quiz, .exam, .certificate: return false // остальные материалы недоступны
+                }
+            case .student:
+                switch material {
+                case .lesson, .quiz, .exam: return operation == .view || operation == .attempt
+                case .certificate: return operation == .view
+                }
+            case .teacher:
+                switch material {
+                case .lesson, .quiz, .exam, .certificate: return operation == .view || operation == .attempt ||
+                    operation == .create ||
+                    operation == .grade
+                }
+            case .school:
+                return true
+                }
+            }
+        // Тесты
+            print("🧪 ТЕСТЫ ОБРАЗОВАТЕЛЬНОЙ ПЛАТФОРМЫ:")
+            print("❌ Пробный: Урок + Создать: \(canPerform(plan: .trial, material: .lesson, operation: .create))")
+            print("✅ Пробный: Урок + Просмотр: \(canPerform(plan: .trial, material: .lesson, operation: .view))")
+            print("✅ Студент: Тест + Прохождение: \(canPerform(plan: .student, material: .quiz, operation: .attempt))")
+            print("❌ Студент: Экзамен + Оценить: \(canPerform(plan: .student, material: .exam, operation: .grade))")
+            print("✅ Учитель: Урок + Создать: \(canPerform(plan: .teacher, material: .lesson, operation: .create))")
+            print("✅ Школа: Сертификат + Оценить: \(canPerform(plan: .school, material: .certificate, operation: .grade))")
         
-        // Правила:
-        // TRIAL:   lessons → view
-        // STUDENT: lessons/quizzes/exams → view/attempt; certificates → view
-        // TEACHER: всё материалы → view/create/grade
-        // SCHOOL:  все операции со всеми материалами")
-    }
+    } /* 🧪 ТЕСТЫ ОБРАЗОВАТЕЛЬНОЙ ПЛАТФОРМЫ:
+       ❌ Пробный: Урок + Создать: false
+       ✅ Пробный: Урок + Просмотр: true
+       ✅ Студент: Тест + Прохождение: true
+       ❌ Студент: Экзамен + Оценить: false
+       ✅ Учитель: Урок + Создать: true
+       ✅ Школа: Сертификат + Оценить: true */
     
     static func task9_2h() {
         print("Задача 9.3: Задача 3: Фитнес-приложение. Настроить доступ к функциям по типам членства")
@@ -429,13 +517,15 @@ public struct Chapter9_Enumerations {
         enum Activity { case view, start, customize, share }
         
         // Реализуй:
-        func canDo(membership: Membership, workout: Workout, activity: Activity) -> Bool
-        
-        // Правила:
-        // BASIC:  basic workouts → view
-        // PLUS:   basic/premium → view/start
-        // COACH:  basic/premium/custom → view/start/customize/share
-        // ADMIN:  все workouts → все activities")
+        func canDo(membership: Membership, workout: Workout, activity: Activity) -> Bool {
+            
+            // Правила:
+            // BASIC:  basic workouts → view
+            // PLUS:   basic/premium → view/start
+            // COACH:  basic/premium/custom → view/start/customize/share
+            // ADMIN:  все workouts → все activities")
+            return true
+        }
     }
     
     static func task9_2i() {
@@ -446,15 +536,16 @@ public struct Chapter9_Enumerations {
         enum Access { case view, add, modify, delete }
         
         // Реализуй:
-        func hasAccess(user: UserType, section: Section, access: Access) -> Bool
-        
-        // Правила:
-        // GUEST:  catalog → view
-        // BUYER:  catalog/cart/orders → view/add (в cart); orders → view
-        // SELLER: catalog/orders → view/add/modify; analytics → view
-        // MANAGER: все sections → все access")
+        func hasAccess(user: UserType, section: Section, access: Access) -> Bool {
+            
+            // Правила:
+            // GUEST:  catalog → view
+            // BUYER:  catalog/cart/orders → view/add (в cart); orders → view
+            // SELLER: catalog/orders → view/add/modify; analytics → view
+            // MANAGER: все sections → все access")
+            return true
+        }
     }
-    
     static func task9_2j() {
         print("Задача 9.5: Электронная библиотека. Ограничить доступ к книгам по возрасту и статусу")
         
@@ -464,13 +555,15 @@ public struct Chapter9_Enumerations {
         enum Reading { case preview, borrow, download, annotate }
         
         // Реализуй:
-        func canRead(level: ReaderLevel, book: BookType, reading: Reading) -> Bool
-        
-        // Правила:
-        // CHILD:   children → preview/borrow
-        // TEEN:    children/fiction → preview/borrow/download
-        // ADULT:   children/fiction/academic → все чтения
-        // SCHOLAR: все book types → все reading types
+        func canRead(level: ReaderLevel, book: BookType, reading: Reading) -> Bool {
+            
+            // Правила:
+            // CHILD:   children → preview/borrow
+            // TEEN:    children/fiction → preview/borrow/download
+            // ADULT:   children/fiction/academic → все чтения
+            // SCHOLAR: все book types → все reading types
+            return true
+        }
     }
     
     static func task9_3() {
@@ -481,4 +574,8 @@ public struct Chapter9_Enumerations {
         print("Задача 9.3: ..")
     }
 }
-
+/* 📁 Project/
+        ├── 🎨 task9_2b.swift - Colors with HEX codes
+        ├── 📦 task9_2c.swift - Order status system
+        ├── ✅ task9_2d.swift - To-Do task manager
+        └── 🔐 task9_2e.swift - Advanced access rights system  */
