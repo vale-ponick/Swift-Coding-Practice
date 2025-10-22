@@ -754,8 +754,60 @@ public struct Chapter10_ClassesAndStructs {
      Стоимость поездки туда и обратно:: 6513.98 рублей  */
     
     static func task10f_5() {
-        print("Задача 10f.5: создай 12 своих структур")
+        print("Задача 10f.5: Уровень 5: State Management - методы изменения состояния.")
+        
+        struct Book {
+            let name: String
+            let author: String
+            let pages: [Int]
+            var isRead: Bool
+            var currentPage: Int
+            
+            init(name: String, author: String, pages: [Int], isRead: Bool, currentPage: Int) {
+                self.name = name
+                self.author = author
+                self.pages = pages
+                self.isRead = isRead
+                self.currentPage = currentPage
+            }
+            
+            var progressOfReading: Double {
+                let initialPage = 0
+                let readPages = initialPage + currentPage
+                guard pages.count > 0 else { return 0.0 }
+                return Double(readPages) / Double(pages.count)
+            }
+            
+            mutating func markRead() {
+                isRead = true
+                currentPage = pages.count
+            }
+            
+            mutating func toggleReadingStatus() {
+                isRead = !isRead
+                if isRead {
+                    currentPage = pages.count
+                } else {
+                    currentPage = 0
+                }
+            }
+        }
+        let bookIT = Book(name: "Head First. Swift.", author: "J.Manning", pages: Array(1...400), isRead: false, currentPage: 122)
+
+        print("Прогресс чтения: \(bookIT.progressOfReading * 100)%")
+
+        var book = bookIT // нужно var для mutating методов
+        book.markRead()
+        print("После markRead: \(book.isRead), страница: \(book.currentPage)")
+
+        book.toggleReadingStatus()
+        print("После toggle: \(book.isRead), страница: \(book.currentPage)")
     }
+    /* Задача 10f.5: Уровень 5: State Management - методы изменения состояния.
+     Прогресс чтения: 30.5%
+     После markRead: true, страница: 400
+     После toggle: false, страница: 0 */
+    
     static func task10g_5() {
         print("Задача 10g.5: создай 12 своих структур")
     }
