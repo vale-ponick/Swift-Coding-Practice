@@ -360,74 +360,74 @@ public struct Chapter10_ClassesAndStructs {
      💰 Бюджет: 5000.0 руб
      💸 Расходы: 2900.0 руб
      📊 Остаток: 2100.0 руб
-
+     
      --- Демонстрация Class vs Struct ---
      Struct: expense1 = 300.0, expense2 = 500.0
      Class: trip1 и trip2 ссылаются на один объект  */
+    
+    static func task10_2() {
+        print("Задача 10.2: Напиши консольное приложение: создай класс 'House' и в нем свойства 'width' + 'height' и методы: 'build'(width * height), getWidth + getHeight (вывод на экран).")
+        class House {
+            let width: Int
+            let height: Int
             
-            static func task10_2() {
-                print("Задача 10.2: Напиши консольное приложение: создай класс 'House' и в нем свойства 'width' + 'height' и методы: 'build'(width * height), getWidth + getHeight (вывод на экран).")
-                class House {
-                    let width: Int
-                    let height: Int
-                    
-                    init(width: Int, height: Int) {
-                        self.width = width
-                        self.height = height
-                    }
-                    func build() -> String {
-                        let square = self.width * self.height
-                        return "Площадь дома: \(square)"
-                    }
-                    func getWidth() -> String {
-                        return "Ширина дома: \(width)"
-                    }
-                    func getHeight() -> String  {
-                        return "Высота дома: \(height)"
-                    }
-                }
-                // тесты
-                let myHouse = House(width: 12, height: 21)
-                let square = myHouse.build()
-                print(square)
-                print(myHouse.getWidth())
-                print(myHouse.getHeight())
+            init(width: Int, height: Int) {
+                self.width = width
+                self.height = height
             }
+            func build() -> String {
+                let square = self.width * self.height
+                return "Площадь дома: \(square)"
+            }
+            func getWidth() -> String {
+                return "Ширина дома: \(width)"
+            }
+            func getHeight() -> String  {
+                return "Высота дома: \(height)"
+            }
+        }
+        // тесты
+        let myHouse = House(width: 12, height: 21)
+        let square = myHouse.build()
+        print(square)
+        print(myHouse.getWidth())
+        print(myHouse.getHeight())
+    }
     /* Задача 10.2: Напиши консольное приложение: создай класс 'House' и в нем свойства 'width' + 'height' и методы: 'build'(width * height), getWidth + getHeight (вывод на экран).
      Площадь дома: 252
      Ширина дома: 12
      Высота дома: 21 */
     
-            static func task10_3() {
-                print("Задача 10.3: Создай класс с массивом имен. Напиши метод, который принимает букву и возвращает имена, начинающиеся на эту букву. Напиши второй метод, который принимает массив строк и печатает каждое имя с новой строки. Протестируй: отфильтруй имена на букву 'А' и распечатай результат.")
-                
-            let names = ["Boris", "Sam", "Adam", "Arnold", "Bob", "Alex", "Andrew"]
-                
-                class Person {
-                    let names: [String]
-                    
-                    init(names: [String]) {
-                        self.names = names
-                    }
-                    func filter(by letter: String) -> [String] {
-                        return self.names.filter { $0.hasPrefix(letter) }
-                    }
-                    
-                    func printNames(_ names: [String]) {
-                        names.forEach { print($0) }
-                        }
-                    }
-                
-                let person = Person(names: names)
-                let arrayNamesFromA = person.filter(by: "A")
-
-                print("Отфильтрованные имена: \(arrayNamesFromA)")
-                print("\nИмена с новой строки:")
-                person.printNames(arrayNamesFromA)
-   }
+    static func task10_3() {
+        print("Задача 10.3: Создай класс с массивом имен. Напиши метод, который принимает букву и возвращает имена, начинающиеся на эту букву. Напиши второй метод, который принимает массив строк и печатает каждое имя с новой строки. Протестируй: отфильтруй имена на букву 'А' и распечатай результат.")
+        
+        let names = ["Boris", "Sam", "Adam", "Arnold", "Bob", "Alex", "Andrew"]
+        
+        class Person {
+            let names: [String]
+            
+            init(names: [String]) {
+                self.names = names
+            }
+            func filter(by letter: String) -> [String] {
+                return self.names.filter { $0.hasPrefix(letter) }
+            }
+            
+            func printNames(_ names: [String]) {
+                names.forEach { print($0) }
+            }
+        }
+        
+        let person = Person(names: names)
+        let arrayNamesFromA = person.filter(by: "A")
+        
+        print("Отфильтрованные имена: \(arrayNamesFromA)")
+        print("\nИмена с новой строки:")
+        person.printNames(arrayNamesFromA)
+    }
     /* Задача 10.3: Создай класс с массивом имен. Напиши метод, который принимает букву и возвращает имена, начинающиеся на эту букву. Напиши второй метод, который принимает массив строк и печатает каждое имя с новой строки. Протестируй: отфильтруй имена на букву 'А' и распечатай результат.
      Отфильтрованные имена: ["Adam", "Arnold", "Alex", "Andrew"]
-
+     
      Имена с новой строки:
      Adam
      Arnold
@@ -544,7 +544,7 @@ public struct Chapter10_ClassesAndStructs {
             let message = count <= 12 ? "There are places in school" : "No places in school"
             return (sortedStudents, count, message)
         }
-
+        
         let result = checkSchool(students: ["Иван", "Мария", "Елена"])
         print(result.sorted)
         print(result.count)
@@ -609,14 +609,14 @@ public struct Chapter10_ClassesAndStructs {
             let hasSunroof: Bool
             
             init(name: String, color: String, tank: Int, year: Int, fuel: String, hasSpareWheel: Bool = true, hasSunroof: Bool = false) {
-                   self.name = name
-                   self.color = color
-                   self.tank = tank
-                   self.year = year
-                   self.fuel = fuel
-                   self.hasSpareWheel = hasSpareWheel
-                   self.hasSunroof = hasSunroof
-               }
+                self.name = name
+                self.color = color
+                self.tank = tank
+                self.year = year
+                self.fuel = fuel
+                self.hasSpareWheel = hasSpareWheel
+                self.hasSunroof = hasSunroof
+            }
             
             var age: Int {
                 Calendar.current.component(.year, from: Date()) - year
@@ -625,10 +625,10 @@ public struct Chapter10_ClassesAndStructs {
             var description: String { // кастомный скрывает приватные свойства
                 return "Car(name: \(name), color: \(color))" // fuel намеренно НЕ включаем - инкапсуляция! НЕЛЬЗЯ изменить ИЗВНЕ!!!
             }
-                func isDiesel() -> Bool {
-                    return fuel.lowercased().contains("diesel")
-                }
+            func isDiesel() -> Bool {
+                return fuel.lowercased().contains("diesel")
             }
+        }
         let myCar = Car(name: "Toyota Rav4", color: "silver", tank: 50, year: 2015, fuel: "petrol AI-95")
         print(myCar)
         print("My car is old:", (myCar.age))
@@ -647,7 +647,7 @@ public struct Chapter10_ClassesAndStructs {
             let street: String
             let city: String
         }
-            
+        
         let myAddress = Address(street: "Komarova", city: "Krasnoyarsk")
         print(myAddress)
         
@@ -726,7 +726,7 @@ public struct Chapter10_ClassesAndStructs {
             }
             
             var totalFuel: Double {
-               let fuelNeeded = (distance / 100) * fuelConsumption
+                let fuelNeeded = (distance / 100) * fuelConsumption
                 return fuelNeeded * fuelPrice
             }
             
@@ -793,13 +793,13 @@ public struct Chapter10_ClassesAndStructs {
             }
         }
         let bookIT = Book(name: "Head First. Swift.", author: "J.Manning", pages: Array(1...400), isRead: false, currentPage: 122)
-
+        
         print("Прогресс чтения: \(bookIT.progressOfReading * 100)%")
-
+        
         var book = bookIT // нужно var для mutating методов
         book.markRead()
         print("После markRead: \(book.isRead), страница: \(book.currentPage)")
-
+        
         book.toggleReadingStatus()
         print("После toggle: \(book.isRead), страница: \(book.currentPage)")
     }
@@ -809,15 +809,258 @@ public struct Chapter10_ClassesAndStructs {
      После toggle: false, страница: 0 */
     
     static func task10g_5() {
-        print("Задача 10g.5: создай 12 своих структур")
+        print("Задача 10g.5: // Напиши функцию createBook, которая проверяет: что title не пустой, что pages > 0, если category пустая - ставит 'Unknown', возвращает Book? (optional)")
+        
+        struct Book {
+            let title: String
+            let author: String
+            let pages: Int
+            let category: String
+        }
+        func createBook(title: String, author: String, pages: Int, category: String) -> Book? {
+            guard !title.isEmpty else {
+                print("❌ Title is not be empty")
+                return nil
+            }
+            guard !author.isEmpty else {
+                print("❌ Author is not empty")
+                return nil
+            }
+            guard pages > 0 else {
+                print("❌ Pages must be greater than 0")
+                return nil
+            }
+            let normalizedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+            let normalizedAuthor = author.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let normalizedCategory = category.isEmpty ? "Unknoun" : category
+            
+            return Book(  // Создай объект с нормализованными данными
+                title: normalizedTitle,
+                author: normalizedAuthor,
+                pages: pages,
+                category: normalizedCategory
+            )
+        }
+        
+        if let validBook = createBook(title: "Shining", author: "King", pages: 287, category: "Horror") {
+            print("✅ Creat correct book: \(validBook)")
+        }
+        
+        if let bookWithUnknownCategory = createBook(title: "Shining", author: "Steven King", pages: 287, category: "") {
+            print("❌ Creat book with default category: \(bookWithUnknownCategory)")
+        }
+        /* Задача 10g.5: // Напиши функцию createBook, которая проверяет: что title не пустой, что pages > 0, если category пустая - ставит 'Unknown', возвращает Book? (optional)
+         ✅ Creat correct book: Book(title: "Shining", author: "King", pages: 287, category: "Horror")
+         ❌ Creat book with default category: Book(title: "Shining", author: "Steven King", pages: 287, category: "Uncnoun") 🥳🎊 */
     }
+    
     static func task10h_5() {
-        print("Задача 10h.5: создай 12 своих структур")
+        print("Задача 10h.5: 📚 ЗАДАЧА 1: Базовая модель книги - создай структуру Book с базовой валидацией данных")
+        
+        struct Book {
+            let title: String
+            let author: String
+            let pagesCount: Int
+            let id: UUID
+            
+            var isAvailable: Bool = true
+            var isUnderRepair: Bool = false
+            
+            init?(title: String, author: String, pagesCount: Int) {
+                if title.isEmpty || author.isEmpty || pagesCount <= 0 {
+                    return nil
+                }
+                self.title = title
+                self.author = author
+                self.pagesCount = pagesCount
+                self.id = UUID()
+            }
+            
+            var isLongBook: Bool {
+                pagesCount > 500
+            }
+            
+            mutating func toggleAvailability() {
+                isAvailable.toggle()
+            }
+            
+            mutating func markForRepair() {
+                isUnderRepair = true
+                isAvailable = false
+            }
+            
+            func canBeBorrowed() throws {
+                guard isAvailable else {
+                    throw LibraryError.bookNotAvailable
+                }
+                guard !isUnderRepair else {
+                    throw LibraryError.bookNotAvailable
+                }
+            }
+        }
+        
+        struct LibraryMember {
+            let id: UUID
+            let name: String
+            var borrowedBooks: [Book] = []
+            let membershipDate: Date
+            
+            init?(name: String) {
+                guard !name.isEmpty else { return nil }
+                self.name = name
+                self.id = UUID()
+                self.membershipDate = Date()
+            }
+            
+            var canBorrowMore: Bool {
+                borrowedBooks.count < 3
+            }
+            
+            mutating func borrowBook(_ book: Book) throws {
+                guard canBorrowMore else {
+                    throw LibraryError.memberLimitReached
+                }
+                borrowedBooks.append(book)
+            }
+            
+            mutating func returnBook(_ bookId: UUID) throws {
+                if let index = borrowedBooks.firstIndex(where: { $0.id == bookId }) {
+                    borrowedBooks.remove(at: index)
+                } else {
+                    throw LibraryError.bookNotFound
+                }
+            }
+        }
+        
+        enum LibraryError: Error {
+            case memberLimitReached
+            case bookNotFound
+            case bookNotAvailable
+        }
+        
+        func testLibrarySystem() {
+            print("=== КОРОТКИЕ ТЕСТЫ ===")
+            
+            do {
+                // 1. Создаем пользователя и книги
+                var member = LibraryMember(name: "Anna")!
+                var book = Book(title: "Swift", author: "Apple", pagesCount: 400)!
+                
+                // 2. Тест успешного взятия книги
+                try member.borrowBook(book)
+                print("✅ Книга успешно взята")
+                
+                // 3. Тест возврата книги
+                try member.returnBook(book.id)
+                print("✅ Книга успешно возвращена")
+                
+                // 4. Тест ошибки лимита
+                let book2 = Book(title: "Book2", author: "Author", pagesCount: 100)!
+                let book3 = Book(title: "Book3", author: "Author", pagesCount: 200)!
+                let book4 = Book(title: "Book4", author: "Author", pagesCount: 300)!
+                
+                try member.borrowBook(book)
+                try member.borrowBook(book2)
+                try member.borrowBook(book3)
+                
+                do {
+                    try member.borrowBook(book4)
+                } catch LibraryError.memberLimitReached {
+                    print("✅ Лимит книг работает")
+                }
+                
+                print("🎉 ВСЕ ТЕСТЫ ПРОЙДЕНЫ!")
+                
+            } catch {
+                print("❌ Ошибка: \(error)")
+            }
+        }
+        testLibrarySystem()
     }
+    
+    /* Задача 10h.5: 📚 ЗАДАЧА 1: Базовая модель книги - создай структуру Book с базовой валидацией данных
+     === КОРОТКИЕ ТЕСТЫ ===
+     ✅ Книга успешно взята
+     ✅ Книга успешно возвращена
+     ✅ Лимит книг работает
+     🎉 ВСЕ ТЕСТЫ ПРОЙДЕНЫ! */
     
     static func task10_6() {
-        print("Задача 10.6: сделай список покупок. Программа записывает продукты в массив. Если вызываем орпеделенный продукт - в консоли пишем: 'Мед - куплено!'.")
+        print("📚 Задача 10h.6: Составь список покупок - программа записывает продукты в массив. Если вызываем опр. продукт - в консоли пишем 'Мед - куплено'.")
+        
+        struct Product {
+            let name: String
+            let category: String
+            let price: Double
+            var isPurchased: Bool
+        }
+        
+        var groceries: [Product] = []
+        
+        func addProduct(name: String, category: String, price: Double) {
+            let newProduct = Product(name: name, category: category, price: price, isPurchased: false)
+            groceries.append(newProduct)
+            print("Added to list: \(name)")
+        }
+        
+        func markAsPurchased(productName: String) {
+            if let index = groceries.firstIndex(where: { $0.name.lowercased() == productName.lowercased() }) {
+                groceries[index].isPurchased = true
+                print("\(productName) - purchased")
+            } else {
+                print("Product '\(productName)' not found at list")
+            }
+        }
+        
+        func showShoppingList() {
+            print("\nMy📋 shopping List:")
+            for product in groceries {
+                let status = product.isPurchased ? "✅ Purchased" : "⏳ Waiting"
+                print("\(product.name) | Category: \(product.category) | Price: \(product.price) rub. | \(status)")
+            }
+        }
+        
+        print("\n=== ДЕМО РАБОТЫ ПРОГРАММЫ ===")
+        
+        // Добавляем продукты в список
+        addProduct(name: "Мед", category: "Сладости", price: 350.0)
+        addProduct(name: "Хлеб", category: "Выпечка", price: 45.0)
+        addProduct(name: "Молоко", category: "Молочные продукты", price: 85.0)
+        addProduct(name: "Яблоки", category: "Фрукты", price: 120.0)
+        
+        // Показываем список
+        showShoppingList()
+        
+        // Отмечаем некоторые продукты как купленные
+        print("\n=== ПОКУПКИ ===")
+        markAsPurchased(productName: "Мед")
+        markAsPurchased(productName: "Хлеб")
+        
+        // Показываем обновленный список
+        showShoppingList()
     }
 }
-    
-  
+/* 📚 Задача 10h.6: Составь список покупок - программа записывает продукты в массив. Если вызываем опр. продукт - в консоли пишем 'Мед - куплено'.
+ 
+ === ДЕМО РАБОТЫ ПРОГРАММЫ ===
+ Added to list: Мед
+ Added to list: Хлеб
+ Added to list: Молоко
+ Added to list: Яблоки
+
+ My📋 shopping List:
+ Мед | Category: Сладости | Price: 350.0 rub. | ⏳ Waiting
+ Хлеб | Category: Выпечка | Price: 45.0 rub. | ⏳ Waiting
+ Молоко | Category: Молочные продукты | Price: 85.0 rub. | ⏳ Waiting
+ Яблоки | Category: Фрукты | Price: 120.0 rub. | ⏳ Waiting
+
+ === ПОКУПКИ ===
+ Мед - purchased
+ Хлеб - purchased
+
+ My📋 shopping List:
+ Мед | Category: Сладости | Price: 350.0 rub. | ✅ Purchased
+ Хлеб | Category: Выпечка | Price: 45.0 rub. | ✅ Purchased
+ Молоко | Category: Молочные продукты | Price: 85.0 rub. | ⏳ Waiting
+ Яблоки | Category: Фрукты | Price: 120.0 rub. | ⏳ Waiting */
