@@ -23,6 +23,27 @@ public struct Chapter11_InstanceProperty {
     
     static func task11_1() {
         print("Задача 11.1: Создай 10-20 классов с разными свойствами: хранения, вычисляемые (запись и чтение, просто запись, просто чтение), ленивые, обязательно тренируйся с observers (наблюдатели).")
+        
+        class Article {
+            let title: String
+            let author: String
+            var text: String
+            let date: Date
+            
+            init(title: String, author: String, text: String, date: Date) {
+                self.title = title
+                self.author = author
+                self.text = text
+                self.date = date
+            }
+        }
+        var note = Article(title: "Swift classes", author: "Vale", text: "Class - this is named block of the code.", date: Date())
+        
+        let note1 = "Classes in Swift is a reference type."
+        func add(note: Article) -> String {
+            return "\(note.text) \(note1)"
+        }
+        print(add(note: note))
     }
     
     static func task11_2() {
