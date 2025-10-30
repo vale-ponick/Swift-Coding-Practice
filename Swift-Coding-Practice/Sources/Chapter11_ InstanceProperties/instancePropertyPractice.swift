@@ -12,6 +12,9 @@ public struct Chapter11_InstanceProperty {
         print("- Глава 11: Свойства экземпляра -")
         
         task11_1()
+        task11a_1()
+        task11b_1()
+        task11c_1()
         task11_2()
         task11_3()
         task11_4()
@@ -44,6 +47,126 @@ public struct Chapter11_InstanceProperty {
             return "\(note.text) \(note1)"
         }
         print(add(note: note))
+    }
+    
+    static func task11a_1() {
+        print("Задача 11a.1: Создай 10-20 классов с разными свойствами: хранения, вычисляемые (запись и чтение)")
+        
+        class Post {
+            var title: String
+            let author: String
+            var quote: String
+            
+            init(title: String, author: String, quote: String) {
+                self.title = title
+                self.author = author
+                self.quote = quote
+            }
+        }
+        
+        // Работа со ссылками
+        let postHmelevska = Post(
+            title: "Что сказал покойник",
+            author: "I.Hmelevska",
+            quote: "«Результаты сложных арифметических вычислений...»"
+        )
+        
+        print(postHmelevska.title) // Что сказал покойник
+        let postIoanna = postHmelevska  // Ссылка на тот же объект
+        postIoanna.title = "Все красное"  // 🔥 Меняет и postHmelevska.title!
+        
+        print(postHmelevska.title) // Все красное 🔥 Изменилось!
+        print(postIoanna.title)    // Все красное
+        
+        struct PostStruct {
+            var title: String
+            let author: String
+            var quote: String
+        }
+        
+        let postStructHmelevska = PostStruct(
+            title: "Что сказал покойник",
+            author: "I.Hmelevska",
+            quote: "«Результаты сложных арифметических вычислений...»"
+        )
+        
+        // 📋 Структура - работа с копиями
+        var postStructIoanna = postStructHmelevska  // Сразу создаем копию!
+        postStructIoanna.title = "Все красное"
+        
+        print(postStructHmelevska.title) // "Что сказал покойник" ✅ Оригинал НЕ изменился!
+        print(postStructIoanna.title)    // "Все красное"
+    }
+    
+    static func task11b_1() {
+        print("Задача 11b.1: Создай 10-20 классов с разными свойствами: хранения, вычисляемые (запись и чтение, просто запись, просто чтение), ленивые, обязательно тренируйся с observers (наблюдатели).")
+        
+        class Dog {
+            private let breed: String
+            private let color: String
+
+            var age: Double {
+                didSet {
+                    if age < oldValue {
+                        print("Ошибка! Возраст нельзя уменьшать. Возврат к предыдущему значению \(oldValue)")
+                        age = oldValue
+                    } else {
+                        print("Возраст собаки увеличен до: \(age)")
+                    }
+                }
+            }
+
+            init(breed: String, color: String, age: Double) {
+                self.breed = breed
+                self.color = color
+                self.age = age
+            }
+
+            func getBreed() -> String {
+                breed
+            }
+
+            func getColor() -> String {
+                color
+            }
+           
+            func bark() {
+                print("Woof!")
+            }
+
+            func getInfo() -> String {
+                return "\(breed), \(color), \(age) years"
+            }
+        }
+            
+        // ✅ ЭКЗЕМПЛЯРЫ создаются ВНЕ класса
+        let shanya = Dog(breed: "Caucasian Shepherd Dog", color: "blac and red", age: 8.6)
+        let rex = Dog(breed: "Husky", color: "white and gray", age: 0.3)
+        
+        // Использование экземпляров:
+        print("Текущий возраст: \(shanya.age)")  // 8.6
+        shanya.age = 10.0  // ✅ Успешно - увеличиваем
+        shanya.age = 9.0
+        print(rex.getInfo())
+    }
+    /* Текущий возраст: 8.6
+     Возраст собаки увеличен до: 10.0
+     Ошибка! Возраст нельзя уменьшать. Возврат к предыдущему значению 10.0
+     Husky, white and gray, 0.3 years
+     
+     🎯 Что отлично в коде:
+     ✅ Публичное свойство age с валидацией
+
+     ✅ Приватные breed и color только для чтения
+
+     ✅ Корректная логика в didSet
+
+     ✅ Чистые геттеры для приватных свойств
+
+     ✅ Правильная структура класса*/
+    
+    static func task11c_1() {
+        print("Задача 11c.1: Создай 10-20 классов с разными свойствами: хранения, вычисляемые (запись и чтение, просто запись, просто чтение), ленивые, обязательно тренируйся с observers (наблюдатели).")
     }
     
     static func task11_2() {
